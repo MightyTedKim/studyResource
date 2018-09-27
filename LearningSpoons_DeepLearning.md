@@ -22,7 +22,7 @@ __Q2. wine 데이터에서 model_all이랑 model_type의 파라미터 값이 왜
 그래서 tree에서 mtry를 고르는게 좀 헷갈린 거 같기도 하고__
 
 > 제가 질문 자체를 잘못한 것 같아요. 모든 변수를 고려했을 때가 model_all/ 특정 변수만 고려한게 model_type이고   
-고려하는 변수가 다르니 결과도 다르다는 것 같아요 
+고려하는 변수가 다르니 결과도 다른게 당연하죠  
   
 <img width="363" alt="wine_capture" src="https://user-images.githubusercontent.com/38391144/46150047-9da50f00-c2a6-11e8-964d-6c44854a1148.PNG">
   
