@@ -74,3 +74,4 @@ __7. Mytry는 random forest split 할때, 선택될 나무의 갯수로 이해�
 
 
    
+checking for md
