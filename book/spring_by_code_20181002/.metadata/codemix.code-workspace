@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "path": "C:\\Users\\Playdata\\OneDrive\\study\\book\\spring_by_code_20181002\\RemoteSystemsTempFiles"
+    },
+    {
+      "path": "C:\\Users\\Playdata\\OneDrive\\study\\book\\spring_by_code_20181002\\Servers"
+    },
+    {
+      "path": "C:\\Users\\Playdata\\OneDrive\\study\\book\\spring_by_code_20181002\\ex00"
+    }
+  ],
+  "settings": {
+    "javascript.referencesCodeLens.enabled": true,
+    "typescript.implementationsCodeLens.enabled": true,
+    "typescript.referencesCodeLens.enabled": true,
+    "javascript.implicitProjectConfig.checkJs": true
+  }
+}

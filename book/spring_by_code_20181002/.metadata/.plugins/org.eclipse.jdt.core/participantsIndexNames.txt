@@ -1,0 +1,13 @@
+INDEX VERSION 1.131
+C:\Users\k\OneDrive\study\book\spring_by_code_20181002\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3178133098.index
+\ex00\src\main\java
+C:\Users\k\OneDrive\study\book\spring_by_code_20181002\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\495482442.index
+\ex01\src\main\java
+C:\Users\k\OneDrive\study\book\spring_by_code_20181002\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3503913553.index
+\ex01\src\main\java
+C:\Users\Playdata\OneDrive\study\book\spring_by_code_20181002\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1823557430.index
+\test\src\main\java
+C:\Users\Playdata\OneDrive\study\book\spring_by_code_20181002\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3178133098.index
+\ex00\src\main\java
+C:\Users\k\OneDrive\study\book\spring_by_code_20181002\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3012140731.index
+\ex01\src\main\java

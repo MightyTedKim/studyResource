@@ -1,0 +1,27 @@
+[2018-10-02 16:48:40.483] [exthost1] [info] extension host started
+[2018-10-02 16:48:41.304] [exthost1] [info] extension host started
+[2018-10-02 16:48:41.386] [exthost1] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"activationEvent":"*"}
+[2018-10-02 16:48:41.386] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\debug-auto-launch\out\extension
+[2018-10-02 16:48:41.469] [exthost1] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2018-10-02 16:48:41.469] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\emmet\dist\extension
+[2018-10-02 16:48:41.608] [exthost1] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2018-10-02 16:48:41.608] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\merge-conflict\out\extension
+[2018-10-02 16:48:41.775] [exthost1] [info] ExtensionService#_doActivateExtension vscode.search-rg {"startup":true,"activationEvent":"*"}
+[2018-10-02 16:48:41.776] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\search-rg\out\extension
+[2018-10-02 16:48:41.918] [exthost1] [info] ExtensionService#_doActivateExtension ritwickdey.LiveServer {"startup":true,"activationEvent":"*"}
+[2018-10-02 16:48:41.918] [exthost1] [info] ExtensionService#loadCommonJSModule C:\Users\Playdata\.vscode\extensions\ritwickdey.liveserver-5.1.1\out\src\extension
+[2018-10-02 16:48:45.031] [exthost1] [info] eager extensions activated
+[2018-10-02 16:48:45.032] [exthost1] [info] ExtensionService#_doActivateExtension vscode.configuration-editing {"startup":false,"activationEvent":"onLanguage:jsonc"}
+[2018-10-02 16:48:45.032] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\configuration-editing\out\extension
+[2018-10-02 16:48:45.086] [exthost1] [info] ExtensionService#_doActivateExtension vscode.json-language-features {"startup":false,"activationEvent":"onLanguage:jsonc"}
+[2018-10-02 16:48:45.086] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\json-language-features\client\dist\jsonMain
+[2018-10-02 16:48:45.611] [exthost1] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:jsonc"}
+[2018-10-02 16:48:45.611] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\typescript-language-features\dist\extension
+[2018-10-02 16:48:46.078] [exthost1] [info] ExtensionService#_doActivateExtension vscode.grunt {"startup":false,"activationEvent":"onCommand:workbench.action.tasks.runTask"}
+[2018-10-02 16:48:46.078] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\grunt\out\main
+[2018-10-02 16:48:46.095] [exthost1] [info] ExtensionService#_doActivateExtension vscode.gulp {"startup":false,"activationEvent":"onCommand:workbench.action.tasks.runTask"}
+[2018-10-02 16:48:46.095] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\gulp\out\main
+[2018-10-02 16:48:46.112] [exthost1] [info] ExtensionService#_doActivateExtension vscode.jake {"startup":false,"activationEvent":"onCommand:workbench.action.tasks.runTask"}
+[2018-10-02 16:48:46.112] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\jake\out\main
+[2018-10-02 16:48:46.128] [exthost1] [info] ExtensionService#_doActivateExtension vscode.npm {"startup":false,"activationEvent":"onCommand:workbench.action.tasks.runTask"}
+[2018-10-02 16:48:46.128] [exthost1] [info] ExtensionService#loadCommonJSModule c:\Users\Playdata\.codemix\engine\resources\app\extensions\npm\out\main
