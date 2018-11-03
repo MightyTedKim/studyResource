@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="BoardMapper">
+
+    <insert id="create">
+    insert into tbl_board (title, content, writer) 
+    values(#{title}, #{content}, #{writer})
+ 	</insert>
+ 	
+<!-- crud --> 	
+    <select id="read" resultType="BoardVO">
+    select 
+    	bno, title, content, writer, regdate, viewcnt, replycnt
+	from 
+		tbl_board
+	where 
+		bno = #{bno}
+ 	</select>
+
+    <update id="update" parameterType="hashmap">
+    update tbl_board 
+      set title =#{title}, content =#{content}
+   	where bno=#{bno}
+ 	</update>
+
+    <delete id="delete" parameterType="hashmap">
+    delete from tbl_board where bno = #{bno}
+ 	</delete>
+ 	
+<!-- pagination -->
+ 	<select id="listPage" resultType="BoardVO">
+ 	select
+ 		bno, title, content, writer, regdate, viewcnt
+ 	from
+ 		tbl_board
+ 	where bno &gt; 0
+ 	order by bno desc, regdate desc
+	limit #{page},10
+ 	</select>
+
+    <select id="listCriteria" resultType="BoardVO">
+    select 
+      bno, title, content, regdate, viewcnt, replycnt
+    from 
+      tbl_board 
+    where &gt; 0
+    order by bno dex, regdate desc
+    limit #{pageStart}, #{perPageNum}
+    </select>
+	 
+	<select id="countPaging" resultType="int">
+ 	select
+ 		count(bno)
+ 	from
+ 		tbl_board
+ 	where 
+	 	bno &gt; 0
+    </select>
+    
+<!-- search -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+			and title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+			and content like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'w'.toString()">
+			and writer like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+			and title like CONCAT('%', #{keyword}, '%')
+				OR content like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'cw'.toString()">
+			and content like CONCAT('%', #{keyword}, '%')
+				OR writer like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+			and title like CONCAT('%', #{keyword}, '%')
+				OR content like CONCAT('%', #{keyword}, '%')
+				OR writer like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+
+	<select id="listSearch" resultType="BoardVO">
+ 	select *
+  	from tbl_board
+ 	where bno &gt; 0
+	<include refid="search"/>	 
+	order by bno desc
+	limit ${pageStart}, #{perPageNum}
+    </select>
+ 	
+	<select id="listSearchCount" resultType="int">
+ 	select count(bno)
+  	from tbl_board
+ 	where bno &gt; 0
+	<include refid="search"/>	 
+    </select>
+ 	
+
+<!-- update-->
+	 <update id="updateReplyCnt">
+		update 
+			tbl_board 
+		set 
+			replycnt = replycnt + #{amount} 
+		where
+			bno = #{bno}
+	 </update>
+	 
+	 <update id="updateViewCnt">
+		update 
+			tbl_board 
+		set 
+			viewcnt = viewcnt + 1  
+		where
+			bno = #{bno}
+	 </update>
+
+<!-- Attach -->
+	<insert id="addAttach">
+	insert into tbl_attach(fullname, bno) 
+		values (#{fullName}, LAST_INSERT_ID())
+	</insert>
+	
+	<select id="getAttach" resultType="string">
+	select fullname from tbl_attach 
+		where bno = #{bno}
+		order by regdate
+	</select>
+	
+	<delete id="deleteAttach">
+	delete from tbl_attach where bno = #{bno}
+	</delete>
+	
+	<insert id="replaceAttach">
+	insert into tbl_attach(fullname, bno) values (#{fullName}, #{bno})
+	</insert>
+</mapper>

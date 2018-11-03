@@ -1,0 +1,114 @@
+## ex01 ###########################################
+create table tbl_member(
+	userid varchar(50) not null,
+    userpw varchar(50) not null,
+    username varchar(50) not null,
+    email varchar(100),
+    regdate timestamp default now(),
+    updatedate timestamp default now(),
+    primary key(userid)
+);
+
+select * from tbl_member;
+
+## ex02 ###########################################
+DROP TABLE `tbl_board`;
+
+CREATE TABLE `tbl_board` (
+  `bno` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(200) NOT NULL,
+  `content` TEXT NULL,
+  `writer` VARCHAR(50) NOT NULL,
+  `regdate` TIMESTAMP NOT NULL DEFAULT now(),
+  `viewcnt` INT NULL DEFAULT 0,
+  PRIMARY KEY (`bno`));
+  
+select * from tbl_board;
+desc tbl_board;
+
+insert into tbl_board (title, content, writer) 
+    ( select title, content, writer from tbl_board );
+
+## ex03 ###########################################
+DROP TABLE `tbl_reply`;
+
+CREATE TABLE  `tbl_reply` (
+  `rno` INT NOT NULL AUTO_INCREMENT,
+  `bno` INT NOT NULL DEFAULT 0,
+  `replytext` VARCHAR(1000) NOT NULL,
+  `replyer` VARCHAR(50) NOT NULL,
+  `regdate` TIMESTAMP NULL DEFAULT now(),
+  `updatedate` TIMESTAMP NULL DEFAULT now(),
+  PRIMARY KEY (`rno`));
+
+select * from `tbl_reply`;
+desc tbl_reply;
+
+select *
+  	from tbl_board
+ 	where bno > 0
+	and title like CONCAT('%', 'test2', '%')
+	order by bno desc
+	limit 1, 10;
+
+
+## ex04 ############################################
+drop table tbl_user;
+
+create table tbl_user(
+	uid varchar(50),
+    upw varchar(50),
+    uname varchar(100),
+    upoint int,
+    primary key(uid)
+);
+select * from tbl_user;
+drop table tbl_message;
+
+create table tbl_message(
+	mid int not null auto_increment,
+	targetid varchar(50) not null,
+    sender varchar(50) not null,
+    message text not null,
+    opendate timestamp,
+    senddate timestamp not null default now(),
+    primary key(mid)
+);
+select * from tbl_message;
+desc tbl_message;
+
+
+alter table tbl_message add constraint fk_usertarget
+foreign key (targetid) references tbl_user (uid);
+
+alter table tbl_message add constraint fk_usersender
+foreign key (sender) references tbl_user (uid);
+
+insert into tbl_user(uid, upw, uname)
+	values ('user00', 'user00', 'ironman');
+insert into tbl_user(uid, upw, uname)
+	values ('user01', 'user01', 'captain');
+insert into tbl_user(uid, upw, uname)
+	values ('user02', 'user02', 'hulk');
+insert into tbl_user(uid, upw, uname)
+	values ('user03', 'user03', 'thor');
+insert into tbl_user(uid, upw, uname)
+	values ('user10', 'user10', 'quick silver');
+
+
+update tbl_user set upoint1 = upoint where
+    uid = 'user01';
+
+    
+alter table tbl_board add column replycnt int default 0; 
+
+## ex05 ###
+create table tbl_attach(
+	fullName varchar(150) not null,
+    bno int not null,
+    regdate timestamp default now(),
+    primary key(fullName)
+);
+
+alter table tbl_attach add constraint fk_board_attach
+	foreign key(bno) references tbl_board(bno);

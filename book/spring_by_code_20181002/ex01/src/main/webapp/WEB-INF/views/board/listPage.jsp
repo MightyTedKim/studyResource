@@ -38,8 +38,8 @@
 
 							<tr>
 								<td>${boardVO.bno}</td>
-								<td><a
-									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.bno}'>
+ 								<td><a
+									href='/board/readPage?page=${pageMaker.cri.page}&perPageNum=${pageMaker.cri.perPageNum}&bno=${boardVO.bno}'>
 										${boardVO.title}</a></td>
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
@@ -55,11 +55,11 @@
 
 
 				<div class="box-footer">
-
+<%-- 
 					<div class="text-center">
 						<ul class="pagination">
 
-							<c:if test="${pageMaker.prev}">
+							<c:if test="${pageMaker.prev}"> <!-- boolean -->
 								<li><a
 									href="listPage${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
 							</c:if>
@@ -72,19 +72,19 @@
 								</li>
 							</c:forEach>
 
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0}"> <!-- boolean -->
 								<li><a
 									href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
 							</c:if>
 
 						</ul>
 					</div>
-
+ --%>
 
 					<div class="text-center">
 						<ul class="pagination">
 
-							<c:if test="${pageMaker.prev}">
+							<c:if test="${pageMaker.prev}"> <!-- boolean -->
 								<li><a href="${pageMaker.startPage - 1}">&laquo;</a></li>
 							</c:if>
 
@@ -96,14 +96,15 @@
 								</li>
 							</c:forEach>
 
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0}"> <!-- boolean -->
 								<li><a
 									href="${pageMaker.endPage +1}">&raquo;</a></li>
 							</c:if>
 
 						</ul>
-					</div>
+					</div> 
 
+				<a href='/board/register'>register</a>	
 
 				</div>
 				<!-- /.box-footer-->
@@ -115,6 +116,7 @@
 	<!-- /.row -->
 </section>
 <!-- /.content -->
+
 
 <form id="jobForm">
   <input type='hidden' name="page" value=${pageMaker.cri.perPageNum}>
