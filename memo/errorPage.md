@@ -1,28 +1,3 @@
-안녕하세요, 4개월차 병아리 난쏘공입니다.
-
-저번주 TTP 세미나 듣고 와서, 느낀점이 있습니다.
-
-첫번째 발표를 했던 Jason님처럼 쉽게 간결하게, 내용을 설명하려면
-
-꾸준히 연습해야한다는 것을요 ㅋㅋ
-
-
-
-그래서 연습겸, 아직 깊이는 없지만 저도 정리를 해보려합니다.
-
-주제는  "국비지원 강사님들이 지나칠 수 있는 점"
-
-(저 같은 경우는 실무 경력이 없으신 분께 이론만 배웠거든요)
-
----
-
-
-
-빵형 영상에서 신입의 기본이 여러개가 있다고 했는데
-
-가장 대표적인 것은 2개는 **암호화** 와 **에러 페이지 처리** 입니다. 
-
-엄청 간단하기 때문에, 면접 질문에서도 나올 가능성이 높은 부분이고요
 
 
 
@@ -36,19 +11,18 @@
 
 - 아래는 깃허브와 w3chool 에러페이지인데, 사용자 입장에서 더 편하게 사이트를 이용할 수 있어요
 
-![errorPage_1](..\images\errorPage_1.png)
-
+![errorPage_1](https://raw.githubusercontent.com/MightyTedKim/studyResource/master/images/errorPage_1.png)
 
 
 ## 샘플 이미지
 
 - 저는 인터넷에서 아래와 같은 에러페이지를 사용해봤습니다 (깜빡거려서 서버처럼 보이더라고요)
 
-![errorPage_1](..\images\errorPage_2.png)
+![errorPage_1](https://raw.githubusercontent.com/MightyTedKim/studyResource/master/images/errorPage_2.png)
 
 ## 샘플 코드
 
-![errorPage_1](..\images\errorPage_3.png)
+![errorPage_1](https://raw.githubusercontent.com/MightyTedKim/studyResource/master/images/errorPage_3.png)
 
 - web.xml
 
@@ -72,7 +46,7 @@
 
 - error400/404/500/.jsp
 
-![errorPage_1](..\images\errorPage_4.png)
+![errorPage_1](https://raw.githubusercontent.com/MightyTedKim/studyResource/master/images/errorPage_4.png)
 
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8"
