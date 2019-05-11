@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="CommunityMapper">
+
+<!-- test --> 	
+
+<!-- basic_crud --> 	
+    <select id="read" resultType="map">
+    select 
+    	cno, cname, cdesc,
+    	padd, pco_x, pco_y, uid,
+    	regdate, viewcnt, replycnt
+	from 
+		tbl_community
+	where 
+		cno = #{cno}
+ 	</select>
+
+    <update id="update" parameterType="hashmap">
+    update tbl_community 
+      set 
+      	cno =#{cno}, cname =#{cname}, cdesc =#{cdesc}, 
+      	padd =#{padd}, pco_x =#{pco_x}, pco_y =#{pco_y}
+   	where cno=#{cno}
+ 	</update>
+
+    <delete id="delete" parameterType="hashmap">
+    delete from tbl_community where cno = #{cno}
+ 	</delete>
+ 	
+	<insert id="create">
+    insert into tbl_community (
+    		cno, cname, cdesc,
+    		padd, pco_x, pco_y, uid,
+    		regdate, viewcnt, replycnt
+     		) 
+    values(
+    		#{cno}, #{cname}, #{cdesc},
+    		#{padd}, #{pco_x}, #{pco_y}, #{uid}, 
+    		#{regdate}, #{viewcnt}, #{replycnt}
+    		)
+ 	</insert>
+<!-- files_CRUD -->	
+	<insert id="addAttach">
+	insert into tbl_community_attach(fullname, cno) 
+		values (#{fullName}, LAST_INSERT_ID())
+	</insert>
+	
+	<select id="getAttach" resultType="string">
+	select fullname from tbl_community_attach 
+		where cno = #{cno}
+		order by regdate
+	</select>
+	
+	<delete id="deleteAttach">
+	delete from tbl_community_attach where cno = #{cno}
+	</delete>
+	
+	<insert id="replaceAttach">
+	insert into tbl_community_attach(fullname, cno) values (#{fullName}, #{cno})
+	</insert>
+
+<!-- list_search -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'all'.toString()">
+			and cname like CONCAT('%', #{keyword}, '%')
+				OR uid like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'cname'.toString()">
+			and cname like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'uid'.toString()">
+			and uid like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+	
+	<!-- list_search_R -->
+	<select id="listSearch" resultType="map">
+	select 
+		* 
+	 from 
+	 	tbl_community a
+	 join
+		tbl_community_attach b
+	 on b.fullname = (
+		select fullname from tbl_community_attach c
+			where a.cno = c.cno
+			order by a.regdate desc
+			limit 1
+		)
+	<include refid="search"/>
+	limit ${pageStart}, #{perPageNum}
+    </select>
+    
+ 	<!-- list_search_R_count -->
+	<select id="listSearchCount" resultType="int">
+	select count(*) from (
+		select	
+			a.cno, b.fullName 
+	 	 from 
+	 	 	tbl_community a
+		 INNER JOIN 
+		 	tbl_community_attach b
+		 ON 
+		 	a.cno=b.cno
+		 where 
+		 	a.cno &gt; 0
+		<include refid="search"/>	
+	) as community;
+    </select>
+ 
+<!-- Reply_U_count-->
+<update id="updateReplyCnt">
+	update 
+		tbl_community 
+	set 
+		replycnt = replycnt + #{amount} 
+	where
+		cno = #{cno}
+</update>
+<!-- View_U_count-->	 
+<update id="updateViewCnt">
+	update 
+		tbl_community 
+	set 
+		viewcnt = viewcnt + 1  
+	where
+		cno = #{cno}
+</update>
+
+<update id="joinCommunity" parameterType="hashmap">
+    update tbl_community 
+      set 
+ 		member =#{member}      	
+   	where cname = #{cname}
+</update> 	
+ 	
+</mapper>

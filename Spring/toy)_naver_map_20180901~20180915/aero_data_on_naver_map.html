@@ -1,0 +1,184 @@
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=VZh2P8e3BanI8L1zMwyD&submodules=panorama,geocoder"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<!-- page is made with 2 chunks "map" and "aero button"
+the full page consists of panorama, register, list, list_specific, etc. 
+however, for people who need to put geojson files on a map woudl get some help.
+I practiced it with google map, and made the same one with naver(Korean verision of google, I think).
+-->
+
+<body> 
+    <div style="position:absolute; z-index:1">
+        <button type="button" class="btn btn-info" onclick="aero_color_off()">&lt;Reset&gt;</button>
+        <button type="button" class="btn btn-aero3" onclick="aero_coords('Airport')"> Airport</button>
+        <button type="button" class="btn btn-aero2" onclick="aero_coords('Restricted')">Restricted</button>
+        <button type="button" class="btn btn-aero1" onclick="aero_coords('Forbidden')">Forbidden</button>
+    </div>
+
+    <div id="map" style="width:100%; height:400px;"></div>
+</body>
+
+<script>
+    /*-------------------------------*/
+    /*       main_map                */
+    /*-------------------------------*/
+    /*  main map which will show almost all the info in the website  */
+    var map = new naver.maps.Map(document.getElementById('map'), {
+        zoom: 7,
+        mapTypeId: 'normal',
+        center: new naver.maps.LatLng(37.549972999999966, 126.9414804999999),
+    });
+
+    naver.maps.onJSContentLoaded = map_click();;
+
+    /*-----------------------------*/
+    /*   img_src_url_click         */
+    /*----------------------------*/
+    /*   static map image needs a reversed coordinates     */
+    function img_src_url(coord_x, coord_y) {
+        var img_src = "https://openapi.naver.com/v1/map/staticmap.bin?";
+        img_src += "clientId=VZh2P8e3BanI8L1zMwyD&url=http://localhost:8800&crs=EPSG:4326";
+        img_src += "&level=10&w=300&h=200&&baselayer=satellite&overlayers=anno_satellite";
+        img_src += "&center=" + coord_y + "," + coord_x; //needs to reverse coords for static map image
+        img_src += "&markers=" + coord_y + "," + coord_x;
+        return img_src;
+    }
+
+    /*-----------------------------*/
+    /*        map_click            */
+    /*----------------------------*/
+    /* when clicking the map, 
+        pops up with infowindow which has a thumnail satellite img 
+    */
+    function map_click(coord) {//click
+        naver.maps.Event.addListener(map, 'click', function (e) {
+            naver.maps.Service.reverseGeocode({
+                location: new naver.maps.LatLng(e.latlng),
+            }, function (status, response) {
+                if (status !== naver.maps.Service.Status.OK) {
+                    return alert('Sorry, selected place outside South Korea. \n  Please refresh the page! ');//if click coord goes out of bound
+                }
+                var items = response.result.items;
+
+                var contentString = [
+                    '<div class="iw_inner">',
+                    '   <p style="width:320px"> Korean Address: <br/> ' + items[0].address + '<hr/>',
+                    '      <img class="thumbnail_map_image_info" style="padding:10px;" src="' + img_src_url(e.latlng.lat(), e.latlng.lng()) + '" alt="address_korean" /><br />',
+                    '   </p>',
+                    '</div>',
+                ].join('');
+
+                var infowindow = new naver.maps.InfoWindow({
+                    content: contentString,
+                    maxWidth: 750,
+                    borderColor: "#e0eddc",
+                    borderWidth: 5,
+                });
+                var marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(e.latlng),
+                    map: map
+                });
+                infowindow.open(map, marker); k
+            });
+        });
+    }//click
+
+    /*-------------------------------*/
+    /*  aero_coords                  */
+    /*-------------------------------*/
+    var history_aero = [];
+
+    function aero_coords(aero_select) {
+        if (history_aero.includes(aero_select) == false) {
+            history_aero.push(aero_select);
+            $.ajax({
+                type: 'get',
+                url: "https://raw.githubusercontent.com/MightyTedKim/mini-project/master/1.%20naver_map/" + aero_select + '.json',
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    map.data.addGeoJson(data);    //geojson reading
+                },
+                error: function (data, exception) {
+                    console.log("error occure, check data.url: " + data.url);
+                }
+            });
+            aero_color_on(aero_select)// color
+        }
+    }
+
+    function aero_color_on(aero_select) {
+        map.data.setStyle(function (feature) {
+            if (feature.getProperty("prh_lbl_1") != null) {
+                color = 'red';//forbidden red
+            } else if (feature.getProperty("res_lbl_1") != null) {
+                color = 'yellow';//restricted yellow
+            } else if (feature.getProperty("ctr_lbl_1") != null) {
+                color = '#e46cfc';//airport purple
+            } else {
+                color = 'blue'; // none
+            }
+            return /** @type {google.maps.Data.StyleOptions} */({
+                clickable: false,
+                fillColor: color,
+                fillOpacity: 0.4,
+                strokeWeight: 0
+            });
+        });//map.data.style   
+    }
+
+    function aero_color_off() {
+        map.data.setStyle({ visible: false });
+        history_aero = [];//preventing multiple color check
+    };
+
+</script>
+
+<style>
+    /*-------------------------------*/
+    /*       aero_button:            */
+    /*-------------------------------*/
+
+    /*-----forbidden---red---*/
+
+    .btn-aero1 {
+        background-color: #D04B56;
+        width: 80px;
+        float: right
+    }
+
+    .btn-aero1:hover {
+        background-color: #b54a4d;
+    }
+
+    /*-----restricted---yellow---*/
+
+    .btn-aero2 {
+        background-color: #E3B622;
+        width: 80px;
+        float: right
+    }
+
+    .btn-aero2:hover {
+        background-color: #d1a71f;
+    }
+
+    /*-----airport---purple---*/
+
+    .btn-aero3 {
+        background-color: #e46cfc;
+        width: 80px;
+        float: right
+    }
+
+    .btn-aero:hover {
+        background-color: #b66bbf;
+    }
+</style>
+
+</html>

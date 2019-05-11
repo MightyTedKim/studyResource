@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="UserMapper">
+
+<!-- CRUD -->
+	<select id="login" resultType="UserVO">
+	select 
+		uid, upw, uname 
+	 from
+	 	tbl_user
+	 where uid = #{uid}
+	</select>
+
+	<update id="keepLogin">
+	update tbl_user 
+	 set 
+	 	sessionKey = #{sessionId},
+		sessionLimit = #{next} 
+	 where 
+	 	uid = #{uid}
+	</update>
+
+	<select id="checkUserWithSessionKey" resultType="UserVO">
+	select * from tbl_user 
+	 where 
+	 	sessionKey = #{value}
+	 and
+	 	sessionLimit > now()
+	</select>
+
+	<insert id="register">
+    insert into tbl_user (uid, upw, uname) 
+     values(#{uid}, #{upw}, #{uname})
+ 	</insert>
+ 	
+	<select id="idCheck" resultType="int">
+	SELECT COUNT(*) FROM tbl_user
+	WHERE uid = #{uid}
+	</select>
+
+	<select id="nickCheck" resultType="int">
+	SELECT COUNT(*) FROM tbl_user
+	WHERE uname = #{uname}
+	</select>
+
+
+
+</mapper>
