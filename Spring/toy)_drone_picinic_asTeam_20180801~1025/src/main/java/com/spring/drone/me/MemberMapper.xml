@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = 'com.spring.drone.me.MemberMapper'>
+	<resultMap type="MemberVO" id = "MemberResultMap">
+		<result property="id" column="ID"></result>
+		<result property="nickname" column="NICKNAME"></result>
+		<result property="password" column="PASSWORD"></result>
+	</resultMap>
+	
+	<resultMap type="SomoimVO" id="soResultMap">
+		<result property="num" column="num" />
+		<result property="name" column="name" />
+		<result property="founder" column="founder" />
+		<result property="foundingdate" column="foundingdate" />
+		<result property="place" column="place" />
+		<result property="intro" column="intro" />
+		<result property="teamphotoUrlPath" column="teamphotoUrlPath" />
+		<result property="teamphotoFileName" column="teamphotoFileName" />
+	</resultMap>
+	
+	<select id="getMemberlist" resultMap = "MemberResultMap">
+		SELECT * FROM member order by id
+	</select>
+
+	<select id="userCheck" parameterType="com.spring.drone.me.MemberVO" resultType = "int">
+		SELECT count(*) FROM member where id=#{id, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="idcheck" parameterType="String" resultType="Integer">
+      SELECT COUNT(*) FROM member
+      WHERE id = #{id}
+	</select>
+
+	<select id="selectMember" parameterType="com.spring.drone.me.MemberVO" resultMap = "MemberResultMap">
+		SELECT * FROM MEMBER where id=#{id, jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insertMember" parameterType="com.spring.drone.me.MemberVO">
+		INSERT INTO member VALUES
+			(#{id, javaType=String},#{nickname, jdbcType=VARCHAR}, #{password})
+	</insert>
+	
+	<insert id="insertSocialMember" parameterType="com.spring.drone.me.MemberVO">
+		INSERT INTO member (ID, NICKNAME) VALUES
+			(#{id, javaType=String}, #{nickname, jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="selectFounded" parameterType="com.spring.drone.me.MemberVO" resultMap = "soResultMap">
+		SELECT * FROM SOMOIM WHERE FOUNDER = #{id, javaType=String}
+	</select>
+	
+	
+	
+	<update id="updateMember" parameterType="com.spring.drone.me.MemberVO">
+       UPDATE member SET nickname=#{nickname, jdbcType=VARCHAR}, password=#{password, jdbcType=VARCHAR} WHERE id=#{id, jdbcType=VARCHAR}
+   </update>
+   
+   <delete id="deleteMember" parameterType="String">
+       DELETE FROM member WHERE id=#{id, jdbcType=VARCHAR}
+   </delete>
+	
+</mapper>

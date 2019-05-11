@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.drone.ap.AppointMapper">
+
+   <resultMap type="AppointVO" id="appointResultMap">
+      <result property="Appoint_Title" column="Appoint_Title" />
+      <result property="Appoint_Date" column="Appoint_Date" />
+      <result property="Appoint_Desc" column="Appoint_Desc" />
+      <result property="Appoint_Coord" column="Appoint_Coord" />
+      <result property="Appoint_Place" column="Appoint_Place" />
+      <result property="User_Id" column="User_Id" />
+   </resultMap>
+   
+
+   <select id="getAppointList" resultMap="appointResultMap">
+      SELECT * FROM APPOINT
+   </select>     
+    
+   <insert id="appointRegister" parameterType="com.spring.drone.ap.AppointVO">
+      INSERT INTO APPOINT VALUES (
+      #{Appoint_Title, jdbcType=VARCHAR}, 
+      #{Appoint_Date, jdbcType=VARCHAR}, 
+      #{Appoint_Desc, jdbcType=VARCHAR}, 
+      #{Appoint_Coord, jdbcType=VARCHAR}, 
+      #{Appoint_Place, jdbcType=VARCHAR}, 
+      #{User_Id, jdbcType=VARCHAR}
+      )
+   </insert>
+
+</mapper>

@@ -1,0 +1,233 @@
+it's a page to save sql codes_ted_2018-09-09
+
+create table keyword(
+    searchid varchar2(100),
+    searchinput varchar2(100));
+
+drop table appoint;
+/* 약속정보 */
+CREATE TABLE appoint (
+   Appoint_Title VARCHAR2(100 BYTE), /* 장소명 */
+   Appoint_Date VARCHAR2(100 BYTE), /* 날짜 */
+   Appoint_Desc VARCHAR2(500 BYTE), /* 설명 */
+   Appoint_Coord VARCHAR2(500 BYTE), /* 좌표 */
+   Appoint_Place VARCHAR2(500 BYTE), /* 주소 */
+   User_Id VARCHAR2(100 BYTE) NOT NULL /* ID */
+);
+
+
+drop table place;
+/* 지도정보 */
+CREATE TABLE Place (
+   Place_Coord VARCHAR2(100 BYTE), /* 좌표 */
+   Place_Add VARCHAR2(100 BYTE) NOT NULL, /* 주소 */
+   Place_Name VARCHAR2(100 BYTE), /* 이름 */
+   Place_Desc VARCHAR2(500 BYTE), /* 설명 */
+   Place_Cate VARCHAR2(100 BYTE), /* 분류 */
+   User_Id VARCHAR2(100 BYTE) /* 아이디 */
+);
+
+
+
+drop table album;
+
+create table album(
+    num number,
+    id varchar2(100),
+    nickname varchar2(100),
+    title varchar2(300),
+    body varchar2(2000),
+    pname varchar2(300),
+    category varchar2(300),
+    pdate date,
+    readcount number,
+    likecount number,
+    uploadPath varchar2(300),
+    storedFileName varchar2(300),
+    originalName varchar2(300),
+    filesize varchar2(300),
+    coor varchar2(300),
+    tag1 varchar2(200),
+    tag2 varchar2(200),
+    tag3 varchar2(200),
+    tag4 varchar2(200),
+    tag5 varchar2(200),
+    tag6 varchar2(200)
+    );
+
+create table somoim_mem(
+    sm_num number,
+    sm_id varchar2(100),
+    sm_nickname varchar2(100)
+);
+
+select * from likehistory;
+
+create table likehistory(
+ id varchar2(30),
+ num number,
+ likeYn varchar2(5)
+);
+
+
+drop table auction;
+/* 중고게시판 */
+select * from auction;
+
+create table auction(
+ num number,
+ id varchar2(50),
+ nickname varchar2(50),
+ title varchar2(500),
+ body varchar2(4000),
+ pname varchar2(500),
+ price varchar2(30),
+ pdate date,
+ readcount number,
+ ph varchar2(30),
+ sales varchar2(20),
+ likecount number,
+ uploadPath varchar2(200),
+ storedFileName varchar2(200),
+ originalName varchar2(200),
+ fileSize varchar2(200)
+); 
+
+/* 중고게시판 댓글 */
+create table auctionreply(
+    ref_num number,
+    renum number,
+    ref number,
+    re_level number,
+    re_step number,
+    reid varchar2(100),
+    renickname varchar2(100),
+    rebody varchar2(2000),
+    pdate date
+);
+
+
+
+drop table somoim;
+/* 소모임정보 */
+
+create table somoim(
+    num number,
+    name varchar2(200),
+    founder varchar2(200),
+    foundingdate date,
+    place varchar2(200),
+    intro varchar2(1000),
+    uploadPath varchar2(200),
+    storedFileName varchar2(200),
+    originalName varchar2(200),
+    filesize varchar2(200));
+
+
+drop table somoimpost;
+/* 소모임게시글정보 */
+create table somoimpost(
+    somoim_num number,
+    num number,
+    id varchar2(100),
+    nickname varchar2(100),
+    body varchar2(2000),
+    uploadPath varchar2(300),
+    storedFileName varchar2(300),
+    originalName varchar2(300),
+    filesize number,
+    ref number,
+    re_level number,
+    re_step number,
+    pdate date
+    );
+    
+
+delete from album;
+/* 앨범정보 */
+create table album(
+    num number,
+    id varchar2(100),
+    nickname varchar2(100),
+    title varchar2(300),
+    body varchar2(2000),
+    pname varchar2(300),
+    category varchar2(300),
+    pdate date,
+    readcount number,
+    likecount number,
+    uploadPath varchar2(300),
+    storedFileName varchar2(300),
+    originalName varchar2(300),
+    filesize varchar2(300),
+    coor varchar2(300)
+    );
+    
+
+drop table albumreply;
+/* 앨범댓글정보 */
+create table albumreply(
+    ref_num number,
+    renum number,
+    ref number,
+    re_level number,
+    re_step number,
+    reid varchar2(100),
+    renickname varchar2(100),
+    rebody varchar2(2000),
+    pdate date
+);
+
+drop table replynews;
+/* 뉴스댓글정보 */
+create table replynews(
+    news_ref_num number,
+    renum number,
+    ref number,
+    re_level number,
+    re_step number,
+    replyid varchar2(100),
+    replybody varchar2(2000),
+    pdate DATE);
+
+
+drop table member;
+/* 회원가입정보 */
+create table member(
+    id varchar2(200),
+    nickname varchar2(200),
+    password varchar2(200)
+);
+
+
+select * from news;
+ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:NONE';
+drop table news;
+--뉴스 테이블 관련 만들 것 세가지
+--첫째 테이블..
+create table news(
+    num number,
+    title varchar2(500),
+    pdate varchar2(100),
+    source varchar2(200),
+    url varchar2(200),
+    body varchar2(4000),
+    readcount number);
+
+
+--둘째 시퀀스..
+drop sequence news_seq;
+CREATE SEQUENCE news_seq START WITH 1;
+
+--셋째 트리거..
+drop trigger news_trigger;
+CREATE OR REPLACE TRIGGER news_trigger 
+AFTER INSERT 
+ON news
+BEGIN
+update news
+set num = NEWS_SEQ.NEXTVAL;
+END;
+
+
+/

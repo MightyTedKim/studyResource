@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+	<property name="driverClass" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+	<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
+	<property name="username" value="hr" />
+	<property name="password" value="123456" />
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.spring.drone" />
+		<!-- 매퍼: com.spring.springmybatis라는 패키지 경로 실제 디렉토리로 만들어짐.
+		**별표 두 개는  com.spring.springmybatis 아래에 있는 모든 서브패키지 내부의 모든 xml문서를 뜻함.
+		*.xml 별표쩜xml은 아래에 있는 모든 xml문서를 뜻한다.
+		모든 xml문서 매핑이 가능해짐-->
+		<property name="mapperLocations" value="classpath:/com/spring/drone/**/*.xml"></property>
+		
+		<!-- 콕 집어서 MemberMapper.xml만 참조하려면 아래와 같이
+		<property name="mapperLocations" value="classpath:/com/spring/springmybatis/MemberMapper.xml"></property>
+		 이렇게 하면 이 MemberMapper.xml 하나만 연결할 수 있다.-->
+	</bean>
+	
+	<!-- 데이터베이스 연결을 위한 틀..? 위의 sqlSessionFactory를 사용하겠다.. -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+		<!-- org.mybatis.spring.SqlSessionTemplate타입의
+		객체를 만들 때 sqlSessionFactory를 생성자 파라미터로 사용하겠다.
+		즉 실질적인 세션 관리는 sqlSessionTemplate객체가 한다
+		만약 name이 없다면 ref 이름인  sqlSessionFactory -->
+	</bean>
+	
+	
+	
+</beans>

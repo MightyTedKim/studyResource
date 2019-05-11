@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket
+		http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/image/**" location="file:///c:/BigDeep/upload/" />
+	<!-- 
+	
+	이게 보안문제로 먹히지 않을 경우 서버 밑에 피보탈에 server.xml에 다음을 추가
+	
+	<Context docBase="C:/BigDeep/upload/" path="/drone/image" reloadable="true" />
+	얘를 <host></host>안에 넣어야 한다
+	 -->
+	
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="com.spring.drone" />
+		<!-- WebSocket에 사용할 핸들러 객체 생성 / 직접빈등록-->
+<beans:bean id="socketHandler" class="com.spring.drone.me.SocketHandler"/>  
+	
+	<!-- 멀티파트 (파일업로드)관련 빈 설정 -->
+	<!-- multipart 지원 기능을 사용하려면 먼저 MultipartResolver를 스프링 설정 파일에 등록 -->
+	<!-- DispatcherServlet은 이름이 "multipartResolver"인 빈을 사용하기 때문에 다른 이름을 지정할 경우 
+	MUltipartResolver로 사용되지 않음
+	CommonsMultipartResolver를 이용해서 (파일업로드를 위한)객체를 만들 때 multipartResolver라는 이름으로 만들 예정.
+	그런데 id생략하면 클래스 이름의 소문자 형태로 만들어진다.-->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</beans:bean>
+	
+	<websocket:handlers>
+		<websocket:mapping path="/broadcasting" handler="socketHandler" />
+			<websocket:handshake-interceptors>
+				<beans:bean class="com.spring.drone.me.HandshakeInterceptor" />
+			</websocket:handshake-interceptors>	
+	</websocket:handlers>
+	
+</beans:beans>

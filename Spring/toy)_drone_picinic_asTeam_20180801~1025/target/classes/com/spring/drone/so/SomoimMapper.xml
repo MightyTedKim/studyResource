@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.drone.so.SomoimMapper">
+
+	<resultMap type="SomoimVO" id="soResultMap">
+		<result property="num" column="num" />
+		<result property="name" column="name" />
+		<result property="founder" column="founder" />
+		<result property="foundingdate" column="foundingdate" />
+		<result property="place" column="place" />
+		<result property="intro" column="intro" />
+		<result property="uploadPath" column="uploadPath" />
+		<result property="storedFileName" column="storedFileName" />
+		<result property="originalName" column="originalName" />
+		<result property="filesize" column="filesize" />
+		<result property="id" column="id" />
+		<result property="nickname" column="nickname" />
+	</resultMap>
+	
+	<resultMap type="SMVO" id="smResultMap">
+		<result property="num" column="num" />
+		<result property="name" column="name" />
+		<result property="founder" column="founder" />
+		<result property="foundingdate" column="foundingdate" />
+		<result property="place" column="place" />
+		<result property="intro" column="intro" />
+		<result property="uploadPath" column="uploadPath" />
+		<result property="storedFileName" column="storedFileName" />
+		<result property="originalName" column="originalName" />
+		<result property="filesize" column="filesize" />
+	</resultMap>
+	
+	<resultMap type="SomoimPostVO" id="somoimPostResultMap">
+		<result property="somoim_num" column="somoim_num" />
+		<result property="num" column="num" />
+		<result property="id" column="id" />
+		<result property="nickname" column="nickname" />
+		<result property="body" column="body" />
+		<result property="uploadPath" column="uploadPath" />
+		<result property="storedFileName" column="storedFileName" />
+		<result property="originalName" column="originalName" />
+		<result property="filesize" column="filesize" />
+		<result property="ref" column="ref" />
+		<result property="re_level" column="re_level" />
+		<result property="re_step" column="re_step" />
+		<result property="pdate" column="pdate" />
+	</resultMap>
+	
+	<insert id="insertSo" parameterType="com.spring.drone.so.SomoimVO">
+		INSERT INTO SOMOIM VALUES (#{num, jdbcType=NUMERIC}, #{name, jdbcType=VARCHAR}, 
+		#{founder, jdbcType=VARCHAR}, SYSDATE, #{place, jdbcType=VARCHAR}, 
+		#{intro, jdbcType=VARCHAR}, #{uploadPath, jdbcType=VARCHAR}, 
+		#{storedFileName, jdbcType=VARCHAR}, #{originalName, jdbcType=NUMERIC}, 
+		#{filesize, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="joinSo" parameterType="com.spring.drone.so.SomoimVO">
+		INSERT INTO SOMOIM_MEM VALUES (#{num, jdbcType=NUMERIC}, #{id, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="getSMVOList" resultMap="smResultMap" parameterType="com.spring.drone.so.SomoimVO">
+		SELECT * FROM SOMOIM_MEM where sm_num = #{num}
+	</select>
+	
+	
+	<select id="getMaxNum" resultType="int" parameterType="int">
+		select nvl(max(num), 0) as maxnum from SOMOIMPOST where somoim_num = #{somoim_num}
+	</select>
+	
+	<select id="updateStepAndLevel" parameterType="com.spring.drone.so.SomoimPostVO">
+		UPDATE SOMOIMPOST SET RE_STEP = RE_STEP + 1 
+		WHERE REF = #{ref, jdbcType=NUMERIC} AND RE_STEP > #{re_step, jdbcType=NUMERIC}
+	</select>
+	
+	<insert id="insertSomoimPost" parameterType="com.spring.drone.so.SomoimPostVO">
+		INSERT INTO SOMOIMPOST VALUES (#{somoim_num, jdbcType=NUMERIC}, 
+		#{num, jdbcType=NUMERIC}, #{id, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR}, 
+		#{body, jdbcType=VARCHAR}, #{uploadPath, jdbcType=VARCHAR}, 
+		#{storedFileName, jdbcType=VARCHAR}, #{originalName, jdbcType=VARCHAR}, 
+		#{filesize, jdbcType=VARCHAR}, #{ref, jdbcType=NUMERIC}, 
+		#{re_level, jdbcType=NUMERIC}, #{re_step, jdbcType=NUMERIC}, SYSDATE)
+	</insert>
+	
+	<select id="getSoNumByFounder" resultType="int" parameterType="String">
+		select count(*) from SOMOIM where founder = #{founder, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getSoNum" resultType="int">
+		select nvl(max(num), 0) from SOMOIM
+	</select>
+	
+	<select id="getSo" parameterType="int" resultMap="soResultMap">
+		SELECT * FROM SOMOIM WHERE NUM=#{num, jdbcType=NUMERIC}
+	</select> 
+	
+	<select id="getOnlyOnePost" parameterType="com.spring.drone.so.SomoimPostVO" resultMap="somoimPostResultMap">
+		SELECT * FROM SOMOIMPOST WHERE SOMOIM_NUM=#{somoim_num, jdbcType=NUMERIC} 
+		and NUM=#{num, jdbcType=NUMERIC}
+	</select> 
+	
+	<select id="getSomoimPostList" parameterType="int" resultMap="somoimPostResultMap">
+		<![CDATA[
+		SELECT * FROM (SELECT ROWNUM AS RNUM, NUM, NICKNAME, PDATE, 
+		BODY, REF, RE_STEP, RE_LEVEL FROM (SELECT * FROM SOMOIMPOST 
+		ORDER BY REF ASC, RE_STEP ASC) WHERE SOMOIM_NUM=#{num, jdbcType=NUMERIC}) 
+		where RNUM >= 1 and RNUM <= 20
+		]]>
+	</select>
+	
+	<select id="getSoList" resultMap="soResultMap">
+		SELECT * FROM SOMOIM
+	</select>
+	
+	
+	<select id="getSixSoList" resultMap="soResultMap">
+	<![CDATA[
+		SELECT * FROM (SELECT ROWNUM AS RNUM, NUM, NAME, FOUNDER, FOUNDINGDATE, 
+		PLACE, INTRO, UPLOADPATH, STOREDFILENAME, ORIGINALNAME, FILESIZE 
+		FROM SOMOIM ORDER BY FOUNDINGDATE DESC) where RNUM <= 6
+	]]>
+	</select>
+	
+	<select id="getSoPostAfter" parameterType="com.spring.drone.so.SomoimPostVO" resultMap="somoimPostResultMap">
+		<![CDATA[
+		SELECT * FROM (SELECT ROWNUM AS RNUM, NUM, NICKNAME, PDATE, BODY, 
+		REF, RE_STEP, RE_LEVEL FROM (SELECT * FROM SOMOIMPOST ORDER BY REF DESC, RE_STEP ASC) 
+		WHERE SOMOIM_NUM=#{somoim_num, jdbcType=NUMERIC}) 
+		where RNUM >= #{startNum, jdbcType=NUMERIC} and RNUM <= #{endNum, jdbcType=NUMERIC}
+		]]>
+	</select>
+	
+	
+	<select id="verifyFounder" parameterType="com.spring.drone.so.SomoimVO" resultMap="soResultMap">
+		<![CDATA[
+		SELECT * FROM SOMOIM WHERE NUM = #{num, jdbcType=VARCHAR}
+		]]>
+	</select>
+	
+	<select id="getPostList" parameterType="com.spring.drone.so.SomoimPostVO" resultMap="somoimPostResultMap">
+		<![CDATA[
+		SELECT * FROM (SELECT ROWNUM RNUM, SOMOIM_NUM, NUM, ID, NICKNAME, BODY, 
+		UPLOADPATH, STOREDFILENAME, ORIGINALNAME, FILESIZE, REF, RE_STEP, RE_LEVEL, 
+		PDATE FROM 
+		(SELECT * FROM SOMOIMPOST ORDER BY REF DESC, RE_STEP ASC))
+		where SOMOIM_NUM = #{somoim_num}
+		]]>
+	</select>
+	
+	<select id="getPostCount" resultType="int">
+		<![CDATA[
+		select nvl(max(num), 0) from SOMOIMPOST
+		]]>
+	</select>
+	
+	<select id="getPostRefCount" resultType="int" parameterType="com.spring.drone.so.SomoimPostVO">
+		<![CDATA[
+		select nvl(max(re_step), 0) from SOMOIMPOST where ref = #{ref, jdbcType=NUMERIC} 
+		and somoim_num=#{somoim_num, jdbcType=NUMERIC}
+		]]>
+	</select>
+
+	<insert id="insertPost" parameterType="com.spring.drone.so.SomoimPostVO">
+		INSERT INTO SOMOIMPOST VALUES 
+		(#{somoim_num, jdbcType=NUMERIC}, #{num, jdbcType=NUMERIC}, 
+		#{id, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR}, #{body, jdbcType=VARCHAR}, 
+		#{uploadPath, jdbcType=VARCHAR}, #{storedFileName, jdbcType=VARCHAR}, 
+		#{originalName, jdbcType=VARCHAR}, #{filesize, jdbcType=VARCHAR}, 
+		#{ref, jdbcType=NUMERIC}, #{re_level, jdbcType=NUMERIC}, 
+		#{re_step, jdbcType=NUMERIC}, SYSDATE)
+	</insert>
+	
+	<delete id="deletePost" parameterType="com.spring.drone.so.SomoimPostVO">
+		DELETE SOMOIMPOST WHERE NUM = #{num, jdbcType=NUMERIC}
+	</delete>
+	
+	<update id="modifyPost" parameterType="com.spring.drone.so.SomoimPostVO">
+		UPDATE SOMOIMPOST SET BODY = #{body, jdbcType=VARCHAR} 
+		WHERE NUM = #{num, jdbcType=NUMERIC}
+	</update>
+	
+</mapper>

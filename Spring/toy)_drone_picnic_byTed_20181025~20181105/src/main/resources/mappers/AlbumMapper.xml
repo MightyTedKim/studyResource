@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="AlbumMapper">
+
+<!-- test --> 	
+
+<!-- basic_crud --> 	
+    <select id="read" resultType="map">
+    select 
+    	ano, adrone, acate,
+    	pname, pcate, padd, pdesc, pco_x, pco_y, uid, regdate, viewcnt, replycnt
+	from 
+		tbl_Album
+	where 
+		ano = #{ano}
+ 	</select>
+
+    <update id="update" parameterType="hashmap">
+    update tbl_Album 
+      set 
+      	adrone =#{adrone}, acate =#{acate}, 
+      	pname =#{pname}, pcate =#{pcate}, padd =#{padd}, pco_x =#{pco_x}, pco_y =#{pco_y}
+   	where ano=#{ano}
+ 	</update>
+
+    <delete id="delete" parameterType="hashmap">
+    delete from tbl_Album where ano = #{ano}
+ 	</delete>
+ 	
+	<insert id="create">
+    insert into tbl_Album (
+    		adrone, acate,
+    		pname, pcate, padd, pco_x, pco_y, pdesc, uid
+    		) 
+    values(
+    		#{adrone}, #{acate},
+    		#{pname}, #{pcate}, #{padd}, #{pco_x}, #{pco_y}, #{pdesc}, #{uid}
+    		)
+ 	</insert>
+<!-- files_CRUD -->	
+	<insert id="addAttach">
+	insert into tbl_album_attach(fullname, ano) 
+		values (#{fullName}, LAST_INSERT_ID())
+	</insert>
+	
+	<select id="getAttach" resultType="string">
+	select fullname from tbl_album_attach 
+		where ano = #{ano}
+		order by regdate
+	</select>
+	
+	<delete id="deleteAttach">
+	delete from tbl_album_attach where ano = #{ano}
+	</delete>
+	
+	<insert id="replaceAttach">
+	insert into tbl_album_attach(fullname, ano) values (#{fullName}, #{ano})
+	</insert>
+
+<!-- list_search -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'all'.toString()">
+			and acate like CONCAT('%', #{keyword}, '%')
+				OR adrone like CONCAT('%', #{keyword}, '%')
+				OR uid like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'acate'.toString()">
+			and acate like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'adrone'.toString()">
+			and adrone like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'uid'.toString()">
+			and uid like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+	
+	<!-- list_search_R -->
+	<select id="listSearch" resultType="map">
+	select 
+		* 
+	 from 
+	 	tbl_album a
+	 join
+		tbl_album_attach b
+	 on b.fullname = (
+		select fullname from tbl_album_attach c
+			where a.ano = c.ano
+			order by a.regdate desc
+			limit 1
+		)
+	<include refid="search"/>
+	limit ${pageStart}, #{perPageNum}
+    </select>
+    
+ 	<!-- list_search_R_count -->
+	<select id="listSearchCount" resultType="int">
+	select count(*) from (
+		select	tbl_album.ano, tbl_album_attach.fullName from tbl_album
+				INNER JOIN tbl_album_attach 
+				ON tbl_album.ano=tbl_album_attach.ano
+				where tbl_album.ano &gt; 0
+				<include refid="search"/>	
+	) as album;
+    </select>
+ 
+<!-- Reply_U_count-->
+<update id="updateReplyCnt">
+	update 
+		tbl_Album 
+	set 
+		replycnt = replycnt + #{amount} 
+	where
+		ano = #{ano}
+</update>
+<!-- View_U_count-->	 
+<update id="updateViewCnt">
+	update 
+		tbl_Album 
+	set 
+		viewcnt = viewcnt + 1  
+	where
+		ano = #{ano}
+</update>
+
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.drone.gu.GuideMapper">
+
+	<resultMap type="GuideVO" id="guideResultMap">
+		<result property="num" column="num" />
+		<result property="id" column="id" />
+		<result property="nickname" column="nickname" />
+		<result property="title" column="title" />
+		<result property="body" column="body" />
+		<result property="photourlpath" column="photourlpath" />
+		<result property="photofilename" column="photofilename" />
+		<result property="photoname" column="photoname" />
+		<result property="photosize" column="photosize" />
+		<result property="pdate" column="PDATE" />
+
+	</resultMap>
+	
+	<select id="getGuideList" resultMap="guideResultMap">
+		<![CDATA[
+		SELECT * FROM GUIDE
+		]]>
+	</select>
+	<select id="getGuide" resultMap="guideResultMap" parameterType="int">
+		<![CDATA[
+		SELECT * FROM GUIDE WHERE NUM = #{num}
+		]]>
+	</select>
+	<select id="getOneGuide" resultMap="guideResultMap" parameterType="com.spring.drone.gu.GuideVO">
+		<![CDATA[
+		SELECT * FROM GUIDE WHERE NUM = #{num}
+		]]>
+	</select>
+	
+	<insert id="insertGuide" parameterType="com.spring.drone.gu.GuideVO">
+
+		INSERT INTO GUIDE (NUM, TITLE, NICKNAME, BODY) VALUES 
+		(#{num, jdbcType=NUMERIC}, #{title, jdbcType=VARCHAR}, 
+		#{nickname, jdbcType=VARCHAR}, #{body, jdbcType=VARCHAR})
+
+	</insert>
+
+	<update id="updateGuide" parameterType="com.spring.drone.gu.GuideVO">
+		<![CDATA[
+		UPDATE GUIDE SET VALUES NUM = #{num, jdbcType=NUMERIC}, 
+		ID = #{id, jdbcType=VARCHAR}, NICKNAME = #{nickname, jdbcType=VARCHAR}, 
+		BODY = #{body, jdbcType=VARCHAR}, photourlpath = #{photourlpath, jdbcType=VARCHAR}, 
+		photofilename = #{photofilename, jdbcType=VARCHAR}, 
+		photoname = #{photoname, jdbcType=VARCHAR}, 
+		photosize = #{photosize, jdbcType=NUMERIC}, SYSDATE)
+		]]>
+	</update>
+	
+	<select id="countPost" resultType="int">
+		<![CDATA[
+		select nvl(max(renum), 0) from guide
+		]]>
+	</select>
+</mapper>

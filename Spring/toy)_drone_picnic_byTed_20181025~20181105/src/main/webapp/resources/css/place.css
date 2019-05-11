@@ -1,0 +1,86 @@
+.map_change{
+	z-index:1;
+	position:absolute;	
+}
+.map_wrap{
+	height:200px;
+	width:300px;
+}
+
+.map_header{
+	font-weight: bold;
+    font-size: 30px;
+}
+.map_body{
+	background: whitesmoke;
+    width: 50%;
+    margin: auto;
+}
+
+
+
+/* Place Main.jsp */
+/* 지도 옆에 있는 장소 목록 */
+
+.place_list_wrap {
+    border-radius: 15px;       
+    background:white;
+    height:700px;
+    overflow-y: scroll;
+   }
+
+/* 지도 위에 있는 버튼 */
+.place_btn_common{
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    margin: 10px;
+}
+.place_btn_1{
+    left: 20px !important;
+}
+.place_btn_2{
+    left: 60px !important;
+}
+.place_btn_3{
+    left: 110px !important;
+}
+.place_btn_4{
+	left: 160px !important;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 10px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+ 
+.dropdown-content a {
+	width:85%;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    right:2px;
+}
+
+.button_head{
+  color: white; 
+  background:grey;
+  border-radius: 15px;
+  padding:10px;
+}
+
+.thumb_map_header{
+}
+.thumb_map_body{
+    font-size: 15px;
+	font-weight: bold;
+}
+.thumb_map_footer{
+}

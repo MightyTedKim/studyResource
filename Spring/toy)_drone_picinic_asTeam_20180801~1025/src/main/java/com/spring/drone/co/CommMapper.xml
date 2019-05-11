@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.drone.co.CommMapper">
+
+	<resultMap type="AlbumVO" id="albumResultMap">
+		<result property="num" column="num" />
+		<result property="id" column="ID" />
+		<result property="nickname" column="nickname" />
+		<result property="title" column="title" />
+		<result property="body" column="body" />
+		<result property="pname" column="pname" />
+		<result property="category" column="CATEGORY" />
+		<result property="pdate" column="pdate" />
+		<result property="readcount" column="readcount" />
+		<result property="likecount" column="likecount" />
+		<result property="uploadPath" column="uploadPath" />
+		<result property="storedFileName" column="storedFileName" />
+		<result property="originalName" column="originalName" />
+		<result property="filesize" column="filesize" />
+		<result property="coor" column="coor" />
+	</resultMap>
+	
+	<resultMap type="AlbumReplyVO" id="replyResultMap">
+		<result property="ref_num" column="ref_num" />
+		<result property="renum" column="renum" />
+		<result property="ref" column="ref" />
+		<result property="re_level" column="re_level" />
+		<result property="re_step" column="re_step" />
+		<result property="reid" column="reid" />
+		<result property="renickname" column="renickname" />
+		<result property="rebody" column="rebody" />
+		<result property="pdate" column="pdate" />
+	</resultMap>
+	
+	
+	
+<resultMap type="AuctionVO" id="auctionResultMap">
+      <result property="num" column="NUM" />
+      <result property="id" column="ID" />
+      <result property="nickname" column="NICKNAME" />
+      <result property="title" column="TITLE" />
+      <result property="body" column="BODY" />
+      <result property="pname" column="PNAME" />
+      <result property="price" column="PRICE" />
+      <result property="pdate" column="PDATE" />
+      <result property="readcount" column="READCOUNT" />
+      <result property="ph" column="PH" />
+      <result property="sales" column="SALES" />
+      <result property="likecount" column="likecount" />
+      <result property="uploadPath" column="UPLOADPATH" />
+      <result property="storedFileName" column="STOREDFILENAME" />
+       <result property="originalName" column="ORIGINALNAME" />
+      <result property="fileSize" column="FILESIZE" />      
+   </resultMap>
+   
+   <resultMap type="AuctionReplyVO" id="aucreplyResultMap">
+      <result property="ref_num" column="ref_num" />
+      <result property="renum" column="renum" />
+      <result property="ref" column="ref" />
+      <result property="re_level" column="re_level" />
+      <result property="re_step" column="re_step" />
+      <result property="reid" column="reid" />
+      <result property="renickname" column="renickname" />
+      <result property="rebody" column="rebody" />
+      <result property="pdate" column="pdate" />
+   </resultMap>
+   
+	
+	<resultMap type="LikeVO" id="LikeCountMap">
+      <result property="likeCheck" column="likeCheck" />
+   	</resultMap>
+   
+   	<resultMap type="LikeVO" id="LikeResultMap">
+      <result property="num" column="NUM" />
+      <result property="id" column="ID" />
+      <result property="likeYn" column="LIKEYN" />
+   	</resultMap>
+	
+	<!-- 옥션 -->
+   <insert id="insertAuction" parameterType="com.spring.drone.co.AuctionVO">  
+      <![CDATA[
+      INSERT INTO AUCTION VALUES (#{num, jdbcType=NUMERIC}, #{id, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR}, #{body, jdbcType=VARCHAR}, #{pname, jdbcType=VARCHAR}, #{price, jdbcType=VARCHAR}, SYSDATE, #{readcount, jdbcType=NUMERIC}, #{ph, jdbcType=VARCHAR}, #{sales, jdbcType=VARCHAR}, #{likecount, jdbcType=NUMERIC}, #{uploadPath, jdbcType=VARCHAR}, #{storedFileName, jdbcType=VARCHAR}, #{originalName, jdbcType=VARCHAR}, #{fileSize, jdbcType=VARCHAR})
+      ]]>
+   </insert>
+   
+   <select id="getAuctionList" resultMap="auctionResultMap"> <!-- select할 때만 resultMap id 가져오기 -->
+      <![CDATA[
+      SELECT * FROM AUCTION ORDER BY NUM DESC
+      ]]>
+   </select>
+   
+    <select id="addReadcountauc" parameterType="com.spring.drone.co.AuctionVO">
+      <![CDATA[
+      UPDATE AUCTION SET READCOUNT=#{readcount, jdbcType=NUMERIC} WHERE NUM=#{num, jdbcType=NUMERIC}
+      ]]>
+   </select>  
+
+   <select id="getAuction" parameterType="int" resultMap="auctionResultMap">
+      <![CDATA[
+      SELECT * FROM AUCTION WHERE NUM = #{num, jdbcType=NUMERIC}
+      ]]>
+   </select>
+   
+   <select id="getAuctionCount" resultType="int">
+      <![CDATA[
+      select nvl(max(num), 0) from auction
+      ]]>
+   </select>
+   
+   
+   <update id="deleteAuction" parameterType="com.spring.drone.co.AuctionVO">
+   <![CDATA[
+         DELETE FROM AUCTION WHERE num = #{num, jdbcType=NUMERIC}
+      ]]>
+   </update>
+
+
+   <update id="modifyAuction" parameterType="com.spring.drone.co.AuctionVO">  
+      <![CDATA[
+      UPDATE AUCTION SET TITLE = #{title, jdbcType=VARCHAR}, BODY = #{body, jdbcType=VARCHAR}, 
+      PNAME = #{pname, jdbcType=VARCHAR}, PRICE = #{price, jdbcType=VARCHAR}, PDATE = SYSDATE, 
+      PH = #{ph, jdbcType=VARCHAR}, SALES = #{sales, jdbcType=VARCHAR},
+      storedFileName = #{storedFileName, jdbcType=VARCHAR}, 
+      originalName = #{originalName, jdbcType=VARCHAR}, fileSize = #{fileSize, jdbcType=VARCHAR}
+      WHERE NUM = #{num, jdbcType=NUMERIC}
+      ]]>
+   </update>
+   
+   <!-- 옥션 댓글 -->
+   <select id="getAuctionReplyList" parameterType="com.spring.drone.co.AuctionVO" resultMap="aucreplyResultMap">
+      <![CDATA[
+      SELECT * FROM (SELECT ROWNUM RNUM, REF_NUM, RENUM, REF, RE_STEP, RE_LEVEL, 
+      REID, RENICKNAME, REBODY, PDATE FROM 
+      (SELECT * FROM AUCTIONREPLY ORDER BY REF ASC, RE_STEP ASC)) 
+      where REF_NUM = #{num}
+      ]]>
+   </select>
+   
+   <select id="getAuctionReplyCount" resultType="int">
+      <![CDATA[
+      select nvl(max(renum), 0) from auctionreply
+      ]]>
+   </select>
+   
+   <select id="getAuctionReplyRefCount" resultType="int" parameterType="com.spring.drone.co.AuctionReplyVO">
+      <![CDATA[
+      select nvl(max(re_step), 0) from auctionreply 
+      where ref = #{ref, jdbcType=NUMERIC} and ref_num=#{ref_num, jdbcType=NUMERIC}
+      ]]>
+   </select>
+   
+   <insert id="insertAuctionReply" parameterType="com.spring.drone.co.AuctionReplyVO">
+      INSERT INTO auctionreply VALUES (#{ref_num, jdbcType=NUMERIC}, 
+      #{renum, jdbcType=NUMERIC}, #{ref, jdbcType=NUMERIC}, 
+      #{re_level, jdbcType=NUMERIC}, #{re_step, jdbcType=NUMERIC}, 
+      #{reid, jdbcType=VARCHAR}, #{renickname, jdbcType=VARCHAR}, 
+      #{rebody, jdbcType=VARCHAR}, SYSDATE)
+   </insert>
+   
+   <delete id="deleteAuctionReply" parameterType="com.spring.drone.co.AuctionReplyVO">
+      DELETE AUCTIONREPLY WHERE RENUM = #{renum, jdbcType=NUMERIC}
+   </delete>
+   
+   <update id="modifyAuctionReply" parameterType="com.spring.drone.co.AuctionReplyVO">
+      UPDATE AUCTIONREPLY SET REBODY = #{rebody, jdbcType=VARCHAR} 
+      WHERE RENUM = #{renum, jdbcType=NUMERIC}
+   </update>
+	
+	
+	
+	
+	<select id="getAlbumList" resultMap="albumResultMap">
+		<![CDATA[
+		SELECT * FROM ALBUM ORDER BY NUM DESC
+		]]>
+	</select>
+
+	
+	<select id="getAlbum" parameterType="int" resultMap="albumResultMap">
+		<![CDATA[
+		SELECT * FROM ALBUM WHERE NUM = #{num, jdbcType=NUMERIC}
+		]]>
+	</select>
+	<select id="getAlbumCount" resultType="int">
+		<![CDATA[
+		select nvl(max(num), 0) from album
+		]]>
+	</select>
+	
+	<!-- 사진검색 위해 수정 -->
+	<insert id="insertAlbum" parameterType="com.spring.drone.co.AlbumVO">  
+      <![CDATA[
+      INSERT INTO ALBUM VALUES (#{num, jdbcType=NUMERIC}, #{id, jdbcType=VARCHAR}, 
+      #{nickname, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR}, #{body, jdbcType=VARCHAR}, 
+      #{pname, jdbcType=VARCHAR}, #{category, jdbcType=VARCHAR}, SYSDATE, 
+      #{readcount, jdbcType=NUMERIC}, #{likecount, jdbcType=NUMERIC}, 
+      #{uploadPath, jdbcType=VARCHAR}, #{storedFileName, jdbcType=VARCHAR}, 
+      #{originalName, jdbcType=VARCHAR}, #{filesize, jdbcType=VARCHAR}, #{coor, jdbcType=VARCHAR},
+      #{tag1, jdbcType=VARCHAR}, #{tag2, jdbcType=VARCHAR}, #{tag3, jdbcType=VARCHAR},
+      #{tag4, jdbcType=VARCHAR}, #{tag5, jdbcType=VARCHAR}, #{tag6, jdbcType=VARCHAR})
+      ]]>
+   </insert>
+   
+   <!-- 앨범 검색 -->
+      <select id="searchedAlbumList" resultMap="albumResultMap" parameterType="com.spring.drone.co.AlbumVO">
+      select * from ALBUM where title like '%'||#{search, jdbcType=VARCHAR}||'%' or body like '%'||#{search, jdbcType=VARCHAR}||'%'
+      </select>
+	
+	
+	<update id="modifyAlbum" parameterType="com.spring.drone.co.AlbumVO">  
+		<![CDATA[
+		UPDATE ALBUM SET TITLE = #{title, jdbcType=VARCHAR}, BODY = #{body, jdbcType=VARCHAR}, 
+		PNAME = #{pname, jdbcType=VARCHAR}, CATEGORY = #{category, jdbcType=VARCHAR}, PDATE = SYSDATE, 
+		storedFileName = #{storedFileName, jdbcType=VARCHAR}, 
+		originalName = #{originalName, jdbcType=VARCHAR}, filesize = #{filesize, jdbcType=VARCHAR}
+		WHERE NUM = #{num, jdbcType=NUMERIC}
+		]]>
+	</update>
+	
+	<update id="deleteAlbum" parameterType="com.spring.drone.co.AlbumVO">  
+		<![CDATA[
+		DELETE FROM ALBUM
+		WHERE NUM = #{num, jdbcType=NUMERIC}
+		]]>
+	</update>
+	
+	<select id="addReadcount" parameterType="map">
+		<![CDATA[
+		update album set readcount=#{readcount, jdbcType=NUMERIC} 
+		where NUM=#{num, jdbcType=NUMERIC}
+		]]>
+	</select>
+	
+	<select id="getAlbumReplyList" parameterType="com.spring.drone.co.AlbumVO" resultMap="replyResultMap">
+		<![CDATA[
+		SELECT * FROM (SELECT ROWNUM RNUM, REF_NUM, RENUM, REF, RE_STEP, RE_LEVEL, 
+		REID, RENICKNAME, REBODY, PDATE FROM 
+		(SELECT * FROM ALBUMREPLY ORDER BY REF ASC, RE_STEP ASC)) 
+		where REF_NUM = #{num}
+		]]>
+	</select>
+	
+	<select id="getAlbumReplyCount" resultType="int">
+		<![CDATA[
+		select nvl(max(renum), 0) from albumreply
+		]]>
+	</select>
+	<select id="getAlbumReplyRefCount" resultType="int" parameterType="com.spring.drone.co.AlbumReplyVO">
+		<![CDATA[
+		select nvl(max(re_step), 0) from albumreply 
+		where ref = #{ref, jdbcType=NUMERIC} and ref_num=#{ref_num, jdbcType=NUMERIC}
+		]]>
+	</select>
+	<select id="updateStepAndLevel" parameterType="com.spring.drone.co.AlbumReplyVO">
+		<![CDATA[
+		UPDATE albumreply SET RE_STEP = RE_STEP + 1  
+		WHERE REF_NUM = #{ref_num, jdbcType=NUMERIC} 
+		AND REF = #{ref, jdbcType=NUMERIC} AND RE_STEP >= #{re_step, jdbcType=NUMERIC}
+		]]>
+	</select>
+	<insert id="insertAlbumReply" parameterType="com.spring.drone.co.AlbumReplyVO">
+		INSERT INTO albumreply VALUES (#{ref_num, jdbcType=NUMERIC}, 
+		#{renum, jdbcType=NUMERIC}, #{ref, jdbcType=NUMERIC}, 
+		#{re_level, jdbcType=NUMERIC}, #{re_step, jdbcType=NUMERIC}, 
+		#{reid, jdbcType=VARCHAR}, #{renickname, jdbcType=VARCHAR}, 
+		#{rebody, jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	
+	<delete id="deleteAlbumReply" parameterType="com.spring.drone.co.AlbumReplyVO">
+		DELETE ALBUMREPLY WHERE RENUM = #{renum, jdbcType=NUMERIC}
+	</delete>
+	
+	<update id="modifyAlbumReply" parameterType="com.spring.drone.co.AlbumReplyVO">
+		UPDATE ALBUMREPLY SET REBODY = #{rebody, jdbcType=VARCHAR} 
+		WHERE RENUM = #{renum, jdbcType=NUMERIC}
+	</update>
+	
+	<!-- 좋아요 -->
+	<select id="getLikeCount" parameterType="com.spring.drone.co.LikeVO" resultMap="LikeCountMap">
+      <!-- row체크하는것 -->
+      SELECT  count (*) likeCheck FROM LIKEHISTORY where id = #{id, jdbcType=VARCHAR} AND num = #{num, jdbcType=INTEGER}
+	 </select>
+	 
+	 <select id="getLikeData" parameterType="com.spring.drone.co.LikeVO" resultMap="LikeResultMap">
+	     SELECT  num,id,likeYn FROM LIKEHISTORY where id = #{id, jdbcType=VARCHAR}  AND num = #{num, jdbcType=INTEGER}
+	 </select>
+	
+	 <insert id="insertLikeData" parameterType="com.spring.drone.co.LikeVO">
+	    insert into LIKEHiSTORY(num, id, likeYn)  VALUES(#{num, jdbcType = INTEGER}, #{id, jdbcType=VARCHAR}, #{likeYn, jdbcType=VARCHAR})
+	 </insert>
+	
+	 <update id="updateLikeData" parameterType="com.spring.drone.co.LikeVO">
+	    UPDATE LIKEHISTORY SET likeYn = #{likeYn, jdbcType=VARCHAR}  where id = #{id, jdbcType=VARCHAR}  AND num = #{num, jdbcType=INTEGER}
+	 </update>
+	 
+	 <update id="updateTotalLike" parameterType="com.spring.drone.co.LikeVO">
+	       update album set LIKECOUNT=(SELECT  count(*) FROM LIKEHISTORY where num = #{num, jdbcType=INTEGER} and likeYn ='Y')  where num = #{num, jdbcType=INTEGER}
+	 </update>
+</mapper>

@@ -1,0 +1,114 @@
+show databases;
+use drone_picnic;
+
+# user  #################################
+create table `drone_picnic`.`tbl_user`(
+   `uid` varchar(50) not null,
+    `upw` varchar(100) not null,
+    `uname` varchar(50) not null,
+    
+    `sessionkey` varchar(50) not null default 'none',
+   `sessionlimit` timestamp,
+    primary key(uid)
+);
+
+# board  #################################
+CREATE TABLE `drone_picnic`.`tbl_board` (
+  `bno` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(200) NOT NULL,
+  `content` TEXT NULL,
+  `writer` VARCHAR(50) NOT NULL,
+  `regdate` TIMESTAMP NOT NULL DEFAULT now(),
+  `viewcnt` INT NULL DEFAULT 0,
+  `replycnt` int default 0,
+  PRIMARY KEY (`bno`));
+
+#board_reply
+CREATE TABLE  `drone_picnic`.`tbl_reply` (
+  `rno` INT NOT NULL AUTO_INCREMENT,
+  `bno` INT NOT NULL DEFAULT 0,
+  `replytext` VARCHAR(1000) NOT NULL,
+  `replyer` VARCHAR(50) NOT NULL,
+  `regdate` TIMESTAMP NULL DEFAULT now(),
+  `updatedate` TIMESTAMP NULL DEFAULT now(),
+  PRIMARY KEY (`rno`)
+  );
+
+#board_attach
+create table `drone_picnic`.`tbl_attach`(
+   fullname varchar(150) not null,
+    bno int not null,
+    regdate timestamp default now(),
+    primary key(fullname)
+);
+
+# place  #################################
+CREATE TABLE `drone_picnic`.`tbl_place` (
+  `pno` INT NOT NULL AUTO_INCREMENT,
+  `pname` VARCHAR(50) NOT NULL,
+  `pcate` TEXT NULL NOT NULL,
+  `padd` TEXT NULL NOT NULL,
+  `pco_x` TEXT NULL NOT NULL,
+  `pco_y` TEXT NULL NOT NULL,
+  `pdesc` VARCHAR(500) NOT NULL,
+  `uid` VARCHAR(50) NOT NULL,
+  
+  `regdate` TIMESTAMP NOT NULL DEFAULT now(),
+  `viewcnt` INT NULL DEFAULT 0,
+  `replycnt` int default 0,
+  PRIMARY KEY (`pno`)
+  );
+  
+# tbl_album #################################
+CREATE TABLE `drone_picnic`.`tbl_album` (
+  `ano` INT NOT NULL AUTO_INCREMENT,
+  `adrone` VARCHAR(50) NOT NULL,
+  `acate` VARCHAR(50) NOT NULL,  
+  
+  `pname` VARCHAR(50) NOT NULL,
+  `pcate` VARCHAR(50) NOT NULL,
+  `padd` VARCHAR(50) NOT NULL,
+  `pco_x` VARCHAR(50) NOT NULL,
+  `pco_y` VARCHAR(50) NOT NULL,
+  `pdesc` VARCHAR(500) NOT NULL,
+  `uid` VARCHAR(50) NOT NULL,  
+  
+  `regdate` TIMESTAMP NOT NULL DEFAULT now(),
+  `viewcnt` INT NULL DEFAULT 0,
+  `replycnt` int default 0,
+  PRIMARY KEY (`ano`)
+  );
+
+#tbl_album_attach
+create table `drone_picnic`.`tbl_album_attach`(
+   fullName varchar(150) not null,
+    ano int not null,
+    regdate timestamp default now(),
+    primary key(fullName)
+);
+
+# tbl_community #################################
+CREATE TABLE `drone_picnic`.`tbl_community` (
+  `cno` INT NOT NULL AUTO_INCREMENT,
+  `cname` VARCHAR(50) NOT NULL,
+  `cdesc` VARCHAR(50) NOT NULL,
+  `member` VARCHAR(500),
+
+  `padd` VARCHAR(50) NOT NULL,
+  `pco_x` VARCHAR(50) NOT NULL,
+  `pco_y` VARCHAR(50) NOT NULL,
+  `uid` VARCHAR(50) NOT NULL,  
+  
+  `regdate` TIMESTAMP NOT NULL DEFAULT now(),
+  `viewcnt` INT NULL DEFAULT 0,
+  `replycnt` int default 0,
+  PRIMARY KEY (`cno`)
+  );
+
+#tbl_community_attach
+create table `drone_picnic`.`tbl_community_attach`(
+   fullName varchar(150) not null,
+   cno int not null,
+   regdate timestamp default now(),
+   primary key(fullName)
+);

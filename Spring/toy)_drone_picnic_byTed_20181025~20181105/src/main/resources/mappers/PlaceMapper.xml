@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace ="PlaceMapper">
+
+<select id="readJSON" resultType="map">
+	select 
+	a.pcate, 
+    a.pco_x,
+    a.pco_y,
+    a.padd,
+    a.pname,
+    a.pdesc
+    from tbl_album a
+	union
+select 
+	b.pcate,
+    b.pco_x,
+    b.pco_y,
+    b.padd,
+    b.pname,
+    b.pdesc
+    from tbl_place b;
+</select>
+ 	
+<!-- crud --> 	
+    <insert id="create">
+	insert into tbl_place (pname, pcate, padd, pco_x, pco_y, pdesc, uid) 
+	   	values (#{pname}, #{pcate}, #{padd}, #{pco_x}, #{pco_y}, #{pdesc}, #{uid})
+ 	</insert>
+ 	
+    <select id="read" resultType="PlaceVO">
+    select 
+    	pno, pname, pdesc, uid, regdate, viewcnt, replycnt
+	from 
+		tbl_place
+	where 
+		pno = #{pno}
+ 	</select>
+ 	
+ 	
+    <update id="update" parameterType="hashmap">
+    update tbl_place
+      set 
+	  pname =#{pname},
+	  pdesc =#{pdesc}
+   	where pno=#{pno}
+ 	</update>
+
+    <delete id="delete" parameterType="hashmap">
+    delete from tbl_place where pno = #{pno}
+ 	</delete>
+ 	
+
+<!-- search -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'pname'.toString()">
+			and pname like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'pdesc'.toString()">
+			and pdesc like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'pcate'.toString()">
+			and pcate like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'all'.toString()">
+			and pname like CONCAT('%', #{keyword}, '%')
+				OR pdesc like CONCAT('%', #{keyword}, '%')
+				OR pcate like CONCAT('%', #{keyword}, '%')
+				OR uid like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+
+	<select id="listSearch" resultType="PlaceVO">
+ 	select *
+  	from tbl_place
+ 	where pno &gt; 0
+	<include refid="search"/>	 
+	order by pno desc
+	limit ${pageStart}, #{perPageNum}
+    </select>
+ 	
+	<select id="listSearchCount" resultType="int">
+ 	select count(pno)
+  	from tbl_place
+ 	where pno &gt; 0
+	<include refid="search"/>	 
+    </select>
+
+</mapper>

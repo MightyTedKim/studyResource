@@ -1,0 +1,216 @@
+/* by Ted */
+.pointer {
+	cursor: pointer;
+}
+
+.center {
+	margin: auto;
+	width: 100%;
+	padding: 10px;
+}
+
+/* image:hover */
+.image {
+	opacity: 1;
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: .5s ease;
+	backface-visibility: hidden;
+}
+
+.image:hover {
+	opacity: 0.3;
+}
+
+/* 정렬 */
+.text_align_center{
+	text-align: center;
+}
+
+/* 밑줄 */
+
+.line_color_yellow_b{
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color : #f28232;
+	}
+.line_color_blue_b{
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color : #c9d6ea;
+	}
+	
+.line_color_yellow_t{
+	border-top-style: solid;
+	border-top-width: thin;
+	border-top-color : #f28232;
+	}
+	
+.line_color_t{
+	border-top-style: solid;
+	border-top-width: thin;
+	border-top-color : #838df7;
+	}
+.line_color_b{
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color : #838df7;
+	}
+	
+.logo_font{
+	font-family: 'Fugaz One', sans-serif;
+	font-size: 40px;
+	text-align: center; 
+	line-height: 1.5em;
+}
+
+
+/* 글꼴 */
+.nanumgothiccoding * {
+	font-family: 'Nanum Gothic Coding', monospace;
+}
+.normal {
+	font-style: normal;
+}
+
+.w100 {
+	font-weight: 100;
+}
+
+.w300 {
+	font-weight: 300;
+}
+
+.w350 {
+	font-weight: 350;
+}
+
+.w400 {
+	font-weight: 400;
+}
+
+.w500 {
+	font-weight: 500;
+	font-size: 14px;
+}
+
+li span {
+	line-height: 1.8;
+	font-size: 1.0em;
+}
+
+.small_font {
+	font-size: 0.8em;
+}
+
+.logo {
+	font-family: 'Poiret One', cursive;
+	font-size: 42px;
+	font-weight: bold;
+}
+
+.small_logo {
+	font-family: 'Poiret One', cursive;
+	font-size: 85px;
+	font-weight: bold;
+}
+
+.moderate_logo {
+	font-family: 'Poiret One', cursive;
+	font-size: 40px;
+	text-align: left;
+	font-weight: bold;
+	line-height: 1.5em;
+}
+
+.smaller_logo {
+	font-family: 'Poiret One', cursive;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 0em;
+	text-align: center;
+}
+
+.detail_logo {
+	font-family: 'Poiret One', cursive;
+	font-size: 40px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.smallest_logo {
+	font-family: 'Poiret One', cursive;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: left;
+	float: right;
+	padding: 12px 20px;
+	margin: 8px 0;
+}
+
+.korean_text {
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: right;
+	font-weight: bold;
+	line-height: 1.1em;
+}
+
+.korean_text_center {
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: center;
+	font-weight: bold;
+	line-height: 1.1em;
+}
+
+.korean {
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 12px;
+	font-weight: normal;
+	text-align: left;
+	font-weight: bold;
+	line-height: 1.5em;
+}
+
+.korean_center {
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 24px;
+	font-weight: normal;
+	text-align: center;
+	font-weight: 1000;
+	line-height: 1.1em;
+}
+
+.korean_right {
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: right;
+	font-weight: 1000;
+	line-height: 1.1em;
+}
+
+.menu_font {
+	font-size: 19px;
+	font-weight: bold;
+}
+
+.board_font {
+	font-family: 'Nanum Myeongjo', serif;
+	font-size: 12px;
+	font-weight: normal;
+	text-align: left;
+	font-weight: bold;
+	line-height: 1.1em;
+}
+
+.korean_board {
+	font-family: 'Nanum Gothic Coding', monospace;
+	font-weight: 400;
+	line-height: 1.4;
+	font-size: 0.8em;
+}

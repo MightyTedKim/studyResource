@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.drone.pl.PlaceMapper">
+
+   <resultMap type="PlaceVO" id="placeResultMap">
+      <result property="Place_Coord" column="Place_Coord" />
+      <result property="Place_Add" column="Place_Add" />
+      <result property="Place_Name" column="Place_Name" />
+      <result property="Place_Desc" column="Place_Desc" />
+      <result property="Place_Cate" column="Place_Cate" />
+      <result property="User_Id" column="User_Id" />
+   </resultMap>
+
+   <select id="getPlaceList" resultMap="placeResultMap">
+      SELECT * FROM PLACE
+   </select>     
+    
+	<insert id="placeRegister" parameterType="com.spring.drone.pl.PlaceVO">
+		INSERT INTO place VALUES (#{Place_Coord}, 
+		#{Place_Add, jdbcType=VARCHAR}, 
+		#{Place_Name, jdbcType=VARCHAR}, 
+		#{Place_Desc, jdbcType=VARCHAR}, 
+		#{Place_Cate, jdbcType=VARCHAR}, 
+		#{User_Id, jdbcType=VARCHAR})
+	</insert>
+
+</mapper>

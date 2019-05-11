@@ -1,0 +1,631 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Comfortaa|Fugaz+One|Hanuman|Julius+Sans+One|Monoton|Poiret+One|Quicksand|Share|Shrikhand');
+.container{
+	width: 70%; !important
+}
+
+
+.header_body{
+	padding-top: 0px;
+}
+
+.text_border {
+	text-shadow: -1px 0 #eeeeee, 0 1px #eeeeee, 1px 0 #eeeeee, 0 -1px #eeeeee;
+}
+
+a:link {
+    color: #336fce;
+    text-decoration: none;
+}
+a:visited {
+    color: #336fce;
+    text-decoration: none;
+}
+a:hover {
+    color: black; 
+    text-decoration: none;
+}
+a:active {
+    color: orange;
+    text-decoration: none;
+}
+
+.gallery_height{
+	height: 120px;
+	width: 160px;
+	overflow: hidden;
+}
+
+.full_width {
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+   max-width: initial;
+}
+.line_color_tb {
+	border-top-style: solid;
+	border-top-width: thin;
+	border-top-color : #838df7;
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color : #838df7;
+	}
+.orange_border{
+	border-style: solid;
+	border-width: thin;
+	border-color : #ffcc99;
+}
+.black_border{
+	border-style: solid;
+	border-width: thin;
+	border-color : #222222;
+}
+.button_bg_blue{
+	background-color: #fcece5;
+	border-style: solid;
+	border-width: thin;
+	border-color : #838df7;
+	padding: 12px;
+}
+.button_bg_blue_small{
+	background-color: #fcece5;
+	border-style: solid;
+	border-width: thin;
+	border-color : #838df7;
+	padding: 3px;
+}
+.button_bg_blue:hover{
+	background-color: #fce3ec;
+}
+.textarea_width {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	width: 100%;
+}
+.line_color_yellow_b{
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color : #f28232;
+	}
+.line_color_blue_b{
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color : #c9d6ea;
+	}
+	
+.line_color_yellow_t{
+	border-top-style: solid;
+	border-top-width: thin;
+	border-top-color : #f28232;
+	}
+	
+.line_color_t{
+	border-top-style: solid;
+	border-top-width: thin;
+	border-top-color : #838df7;
+	}
+.line_color_b{
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color : #838df7;
+	}
+	
+.logo_font{
+	font-family: 'Fugaz One', sans-serif;
+	font-size: 40px;
+	text-align: center; 
+	line-height: 1.5em;
+}
+
+.thumbnail-wrappper { 
+	width: 100%;
+	height: 350px; 
+	overflow: hidden; 
+	} 
+.thumbnail-wrappper .img {
+	max-width: 100%; 
+	height: auto; 
+	}
+	
+.somo_thumbnail{
+	width: 100%;
+	height: 100px;
+	overflow: hidden;
+}
+.somo_thumb_img{
+	height: 100px;
+	width: auto;
+}
+
+.album_thumb_img{
+	height: 100px;
+	width: auto;
+}
+
+.album_thumb_wrapper{
+	height: 100px;
+	overflow: hidden;
+}
+
+.border_bottom_input {
+	border : none;
+    border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color : red;
+}
+.border_input {
+	border-style: solid;
+	border-width: thin;
+	border-color : #838df7;
+	padding: 3px;
+}
+.txt_line_height{
+	line-height: 2em;
+}
+
+.bottom_line{
+	padding-top: 5px;
+}
+.verticalalign{
+	vertical-align: middle;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	height: 50px; 
+}
+
+.text_align_center{
+	text-align: center;
+}
+
+.text_button{
+	border: 1px solid red;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 20px;
+}
+
+.menu_button{
+	border: 1px solid #f4b942;
+    padding: 10px;
+    border-radius: 0px;
+    margin: 20px;
+    text-align: center;
+}
+
+
+.text_button_small{
+	text-align: center;
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #f9bc13;
+	text-color: white;
+	border: 0px solid yellow;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.div_center{
+	margin-left:auto; 
+    margin-right:auto;
+}
+
+.test{
+	color: red;
+}
+
+.small_letters{
+	font-size: 6pt;
+	color: blue;
+	display: inline-block;
+}
+
+.table_fixed{
+	display: table;
+   	height: 100px;
+   	width: 100%;
+   	table-layout: fixed;
+}
+
+.td_no_overflow{
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+}
+
+.somo_list{
+	width: 130px;
+	height: 150px;
+}
+
+/* 캐러셀시작 */
+
+
+#myCarousel .carousel-caption {
+    left:0;
+	right:0;
+	bottom:0;
+	text-align:left;
+	padding:10px;
+	background:rgba(0,0,0,0.6);
+	text-shadow:none;
+}
+#myCarousel .list-group .active {
+	background-color:#eee;	
+}
+
+@media (min-width: 992px) { 
+	#myCarousel {padding-right:33.3333%;}
+	#myCarousel .carousel-controls {display: inline;} 	
+}
+@media (max-width: 991px) {
+	.carousel-caption p,
+	#myCarousel .list-group {display: inline;} 
+}
+/* 캐러셀끝 */
+
+
+
+/* 소모임 캐러셀 */
+.blog .carousel-indicators {
+	left: 0;
+	top: auto;
+    bottom: -40px;
+
+}
+
+/* The colour of the indicators */
+.blog .carousel-indicators li {
+    background: #a3a3a3;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+}
+
+.blog .carousel-indicators .active {
+background: #707070;
+}
+
+
+
+
+/* album write style */
+        #preview img, #previewPast img {
+                    text-align: center;
+                    vertical-align:middle;
+                    width: 170px;
+                    height: 150px;
+                   
+                }
+        #preview p {
+            text-align: center;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding: 18px;
+            margin: -16px;
+            
+        }
+
+         /* 삭제글씨  */
+         .preview-box a { 
+            font-size: 15px;
+            padding:0px; 
+            margin: -10 -165 -10 -68px;
+            text-align: center;
+            vertical-align:middle;
+
+        }
+
+            /* preview-box 가운데 정렬   */
+        .content { 
+            text-align: center;
+        }    
+
+        .preview-box {
+            display: inline-block;
+            text-align: center;
+            text-overflow: ellipsis;
+            border: 0.5px solid;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 0px; 
+            height: 250px;
+        }
+
+        .attach .btn_file {  /* upload button */
+            display:inline-block;
+            border:1px solid rgba(30, 22, 54, 0.6);
+            border-radius: 3px;
+            width:100px; 
+            height:30px;
+            font-size:0.8em; 
+            line-height:30px;
+            text-align:center; 
+            vertical-align:middle;
+            }
+
+            .attach .btn_file:hover {
+            color: rgba(255, 255, 255, 0.85);
+            box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+        }    
+
+        .attach input[type="file"] { /* 파일 필드 숨기기 */
+            position:absolute;
+            width:1px; height:1px;
+            padding:0; margin:-1px;
+            overflow:hidden; 
+            clip:rect(0,0,0,0);
+            border:0
+            } 
+
+        .wrap {
+            text-align: center;
+        }
+
+   		#button_click {
+            background-color:#eaf0ff;
+            display: block;
+            margin: 0px auto;
+            max-width: 100px;
+            text-decoration: none;
+            border: 0px solid;
+            border-radius: 4px;
+            padding: 10px 15px;
+            width: 150px;
+            color: rgba(30, 22, 54, 0.6);
+            box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;    
+            text-align: center;
+            font-size:16px;
+            }
+
+        #button_click:hover {
+            color: rgba(255, 255, 255, 0.85);
+            box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+            text-decoration: none !important 
+     	}
+        
+        #left{
+            border: 1px solid #eff3ff;
+            border-radius: 5px;
+            background-color: #eaf0ff;
+        }
+
+
+/* album write style 끝*/
+
+
+/*----------------------------*/
+/*소모임상세페이지 약속잡기 스타일 시작*/
+/*----------------------------*/
+.inbox_people {
+   background: #f8f8f8 none repeat scroll 0 0;
+   float: left;
+   overflow: hidden;
+   width: 208px;
+   border-right: 1px solid #c4c4c4;
+}
+
+.inbox_msg {
+   border: 1px solid #c4c4c4;
+   clear: both;
+   overflow: hidden;
+   float: center;
+   width: 262px;
+   height: 490px;
+}
+
+.top_spac {
+   margin: 20px 0 0;
+   width : 260px;
+}
+
+.recent_heading {
+   float: left;
+   width: 40%;
+}
+
+.srch_bar {
+   display: inline-block;
+   text-align: right;
+   width: 60%;
+   padding:
+}
+
+.headind_srch {
+   padding: 10px 29px 10px 20px;
+   overflow: hidden;
+   border-bottom: 1px solid #c4c4c4;
+}
+
+.recent_heading h4 {
+   color: #05728f;
+   font-size: 21px;
+   margin: auto;
+}
+
+.srch_bar input {
+   border: 1px solid #cdcdcd;
+   border-width: 0 0 1px 0;
+   width: 80%;
+   padding: 2px 0 4px 6px;
+   background: none;
+}
+
+.srch_bar .input-group-addon button {
+   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+   border: medium none;
+   padding: 0;
+   color: #707070;
+   font-size: 18px;
+}
+
+.srch_bar .input-group-addon {
+   margin: 0 0 0 -27px;
+}
+
+.chat_ib h5 {
+   font-size: 15px;
+   color: #464646;
+   margin: 0 0 8px 0;
+}
+
+.chat_ib p {
+   font-size: 14px;
+   color: #989898;
+   margin: auto
+}
+
+.chat_img {
+   float: left;
+   width: 11%;
+}
+
+.chat_ib {
+   float: left;
+   padding: 0 0 0 15px;
+   width: 115px;
+}
+
+.chat_people {
+   overflow: hidden;
+   clear: both;
+}
+
+.chat_list {
+   border-bottom: 1px solid #c4c4c4;
+   margin: 0;
+   padding: 18px 16px 10px;
+}
+
+.inbox_chat {
+   height: 550px;
+   overflow-y: scroll;
+}
+
+.active_chat {
+   background: #ebebeb;
+}
+
+.incoming_msg_img {
+   display: inline-block;
+   width: 6%;
+}
+
+.received_msg {
+   display: inline-block;
+   padding: 0 0 0 2px;
+   width: 92%;
+}
+
+.received_withd_msg p {
+   background: #FBEFF5 none repeat scroll 0 0;
+   border-radius: 3px;
+   color: #646464;
+   font-size: 14px;
+   margin: 0;
+   padding: 5px 10px 5px 12px;
+   width: 132px;
+   margin-top: 10px;
+   line-height: 80%;
+}
+
+.time_date {
+   color: #747474;
+   display: block;
+   font-size: 12px;
+   margin: 8px 0 0;
+}
+
+.received_withd_msg {
+   width: 57%;
+}
+
+.mesgs {
+   float: left;
+   padding: 0px 0px 0 0px;
+   width: f;
+}
+
+.sent_msg p {
+   background: #CED8F6 none repeat scroll 0 0;
+   border-radius: 3px;
+   font-size: 14px;
+   margin: 0;
+   color: #646464;
+   padding: 5px 10px 5px 12px;
+   width: 100%;
+   line-height: 80%;
+}
+
+.outgoing_msg {
+   overflow: hidden;
+   margin: 5px 0 5px;
+}
+
+.sent_msg {
+   float: right;
+   width: 46%;
+}
+
+.input_msg_write input {
+   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+   border: medium none;
+   color: #4c4c4c;
+   font-size: 15px;
+   min-height: 48px;
+   width: 100%;
+}
+
+.type_msg {
+   border-top: 1px solid #c4c4c4;
+   position: relative;
+   width: 255px;
+   padding-left: 15px;
+}
+
+.msg_send_btn {
+   background: #05728f none repeat scroll 0 0;
+   border: medium none;
+   border-radius: 50%;
+   color: #fff;
+   cursor: pointer;
+   font-size: 17px;
+   height: 33px;
+   position: absolute;
+   right: 0;
+   top: 11px;
+   width: 33px;
+}
+
+.messaging {
+   padding: 0 0 50px 0;
+   width: 270px;
+   float: center;
+}
+
+.msg_history {
+   height: 355px;
+   overflow-y: auto;
+}
+
+.somoim_name {
+   background: #FBEFF5
+}
+
+.somoim_desc {
+   background: #FBEFF5
+}
+.wrap {
+    text-align: center;
+}
+.modal-backdrop.show {
+    opacity: 0.1;
+}
+
+.pointer {
+   cursor: pointer;
+}
+/*----------------------------*/
+/*소모임상세페이지 약속잡기 스타일 끝 */
+/*----------------------------*/

@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/spring/drone/co/CommController.java=UTF-8
+encoding//src/main/java/com/spring/drone/me/MemberController.java=UTF-8
+encoding//src/main/java/com/spring/drone/news/NewsController.java=UTF-8
+encoding//src/main/java/com/spring/drone/news/NewsCrawlDAOServiceImpl.java=UTF-8
+encoding//src/main/java/com/spring/drone/news/NewsDAOService.java=UTF-8
+encoding//src/main/java/com/spring/drone/news/NewsVO.java=UTF-8
+encoding//src/main/java/com/spring/drone/pl/PlaceController.java=UTF-8
+encoding//src/main/java/com/spring/drone/so/SomoController.java=UTF-8
+encoding//src/main/webapp/comm/auction_write.jsp=UTF-8
+encoding//src/main/webapp/pl/place_aero.jsp=UTF-8
+encoding//src/main/webapp/resources/css/custom.css=UTF-8
+encoding//src/main/webapp/template/header.jsp=UTF-8

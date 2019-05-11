@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.drone.news.NewsMapper">
+  
+	<resultMap type="NewsVO" id="newsResultMap">
+		<result property="rnum" column="RNUM" />
+		<result property="num" column="NUM" />
+		<result property="title" column="TITLE" />
+		<result property="date" column="DATE" />
+		<result property="source" column="SOURCE" />
+		<result property="url" column="URL" />
+		<result property="body" column="BODY" />
+		<result property="readcount" column="READCOUNT" />
+		<result property="ref" column="REF" />
+		<result property="re_step" column="RE_STEP" />
+		<result property="re_level" column="RE_LEVEL" />
+	</resultMap>
+	
+	<resultMap type="ReplyVO" id="replyNewsResultMap">
+		<result property="news_ref_num" column="news_ref_num" />
+		<result property="renum" column="renum" />
+		<result property="ref" column="ref" />
+		<result property="re_level" column="re_level" />
+		<result property="re_step" column="re_step" />
+		<result property="replyid" column="replyid" />
+		<result property="replybody" column="replybody" />
+		<result property="pdate" column="ppdate" />
+	</resultMap>
+	
+	<resultMap type="KeywordVO" id="keywordResultMap">
+		<result property="searchId" column="searchId" />
+		<result property="searchInput" column="searchInput" />
+	</resultMap>
+	
+	
+	<insert id="insertKeyword" parameterType="com.spring.drone.news.KeywordVO">
+		INSERT INTO KEYWORD VALUES (#{searchId, jdbcType=VARCHAR}, #{searchInput, jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="getKeywordList" resultMap="keywordResultMap" parameterType="com.spring.drone.news.KeywordVO">	
+		<![CDATA[
+		SELECT * FROM KEYWORD WHERE SEARCHID = #{searchId, jdbcType=VARCHAR}
+		]]>
+	</select>
+	
+	<select id="getNewsList" resultMap="newsResultMap" parameterType="map">
+		<!-- SELECT * FROM 
+		(SELECT ROWNUM RNUM, NUM, TITLE, PDATE, SOURCE, 
+		URL, BODY, READCOUNT FROM NEWS) -->
+		
+		<![CDATA[
+		SELECT * FROM 
+		(SELECT ROWNUM RNUM, NUM, TITLE, PDATE, SOURCE, 
+		URL, BODY, READCOUNT FROM NEWS) 
+		where RNUM >= #{startRow} and RNUM <= #{endRow} 
+		]]>
+	</select>
+	
+	<select id="addReadcount" parameterType="map">
+		update news set readcount=#{readcount, jdbcType=NUMERIC} 
+		where NUM=#{num, jdbcType=NUMERIC}
+	</select> 
+	
+	<select id="getNews" parameterType="int" resultMap="newsResultMap">
+		SELECT * FROM NEWS WHERE NUM=#{num, jdbcType=NUMERIC}
+	</select> 
+	
+	<insert id="insertNews" parameterType="com.spring.drone.news.NewsVO">
+		INSERT INTO NEWS VALUES 
+		(#{num, jdbcType=NUMERIC}, #{title, jdbcType=VARCHAR}, SYSDATE, 
+		#{source, jdbcType=VARCHAR}, #{url, jdbcType=VARCHAR}, 
+		#{body, jdbcType=VARCHAR}, #{readcount, jdbcType=NUMERIC})
+	</insert>
+	
+	<insert id="insertReply" parameterType="com.spring.drone.news.ReplyVO">
+		INSERT INTO REPLYNEWS VALUES (#{news_ref_num, jdbcType=NUMERIC}, 
+		#{renum, jdbcType=NUMERIC}, #{ref, jdbcType=NUMERIC}, 
+		#{re_level, jdbcType=NUMERIC}, #{re_step, jdbcType=NUMERIC}, 
+		#{replyid, jdbcType=VARCHAR}, #{replybody, jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+	
+	<select id="getMaxReplyNum" resultType="int" parameterType="int">
+		select nvl(max(renum), 0) as maxrenum from REPLYNEWS where news_ref_num = #{news_ref_num}
+	</select>
+	
+	<select id="getReNum" resultType="int" parameterType="int">
+		select count(*) from REPLYNEWS where news_ref_num = #{news_ref_num}
+	</select>
+	
+	<select id="updateStepAndLevel" parameterType="com.spring.drone.news.ReplyVO">
+		UPDATE REPLYNEWS SET RE_STEP = RE_STEP + 1 
+		WHERE REF = #{ref, jdbcType=NUMERIC} AND RE_STEP > #{re_step, jdbcType=NUMERIC}
+	</select>
+	
+	<select id="getReplyList" resultMap="replyNewsResultMap" parameterType="int">
+		SELECT * FROM (SELECT ROWNUM RNUM, NEWS_REF_NUM, RENUM, REF, 
+		RE_STEP, RE_LEVEL, REPLYID, REPLYBODY, 
+		to_char(PDATE,'YYYY-MM-DD HH24:MI:SS') as PPDATE FROM 
+		(SELECT * FROM REPLYNEWS ORDER BY REF DESC, RE_STEP ASC)) 
+		where NEWS_REF_NUM = #{num}
+	</select>
+	
+	<update id="updateNews" parameterType="com.spring.drone.news.NewsVO">
+		UPDATE NEWS SET NUM=#{num}, TITLE=#{title}, DATE=#{date}, 
+		SOURCE=#{source}, URL=#{url}, BODY=#{body} WHERE NUM=#{num}
+	</update>
+	
+	<delete id="deleteNews" parameterType="int">
+		DELETE FROM NEWS WHERE NUM=#{num}
+	</delete>
+	
+	<select id="getCount" resultType="int">
+		SELECT COUNT(*) FROM NEWS
+	</select>
+	
+	<select id="getEduCount" resultType="int">
+		SELECT COUNT(*) FROM NEWS 
+		WHERE title like '%교육%' or 
+		title like '%강좌%' or 
+		title like '%개설%' or 
+		title like '%자격%' or
+		title like '%학교%' or 
+		title like '%초등%' or 
+		title like '%중등%' or 
+		title like '%고등%' or 
+		title like '%학원%' or 
+		title like '%양성%' or 
+		title like '%아카데미%' or 
+		title like '%교실%' or 
+		title like '%특강%' or 
+		title like '%과정%' or 
+		title like '%학과%' or 
+		title like '%대학%'
+	</select>
+	<select id="getComCount" resultType="int">
+		SELECT COUNT(*) FROM NEWS
+		WHERE title like '%공모%' or 
+		title like '%대회%' or 
+		title like '%응모%' or 
+		title like '%응시%' or 
+		title like '%출전%' or 
+		title like '%출품%'
+	</select>
+	<select id="getLeisureCount" resultType="int">
+		SELECT COUNT(*) FROM NEWS
+		WHERE title like '%페스티벌%' or 
+		title like '%체험%' or 
+		title like '%가족%' or 
+		title like '%오픈%' or 
+		title like '%전시%' or 
+		title like '%참가%' or 
+		title like '%공연%' or 
+		title like '%시연%' or 
+		title like '%주말%' or 
+		title like '%엑스포%' or 
+		title like '%놀이%'
+	</select>
+	<select id="getJobCount" resultType="int">
+		SELECT COUNT(*) FROM NEWS 
+		WHERE title like '%구인%' or 
+		title like '%구직%' or 
+		title like '%특기%' or 
+		title like '%육군%' or 
+		title like '%취업%' or 
+		title like '%알선%' or 
+		title like '%모집%' or 
+		title like '%취직%' or 
+		title like '%시험%' or 
+		title like '%선발%' or 
+		title like '%직종%' or 
+		title like '%방제%' or 
+		title like '%정비%' or 
+		title like '%교관%' or 
+		title like '%복무%' or 
+		title like '%자격%'
+	</select>
+	
+	<!-- 뉴스 게시물 분류 -->
+	<select id="getEduNewsList" resultMap="newsResultMap" parameterType="com.spring.drone.news.NewsPaginationVO">
+		<![CDATA[
+		SELECT * FROM 
+		(SELECT ROWNUM RNUM, NUM, TITLE, BODY, SOURCE, URL, PDATE, READCOUNT FROM NEWS 
+		WHERE title like '%교육%' or 
+		title like '%강좌%' or 
+		title like '%개설%' or 
+		title like '%자격%' or
+		title like '%학교%' or 
+		title like '%초등%' or 
+		title like '%중등%' or 
+		title like '%고등%' or 
+		title like '%학원%' or 
+		title like '%양성%' or 
+		title like '%아카데미%' or 
+		title like '%교실%' or 
+		title like '%특강%' or 
+		title like '%과정%' or 
+		title like '%학과%' or 
+		title like '%대학%')  WHERE RNUM >= #{startRow} and RNUM <= #{endRow} 
+		]]>
+	</select>
+	
+	<select id="getComNewsList" resultMap="newsResultMap" parameterType="com.spring.drone.news.ComNewsPaginationVO">
+		<![CDATA[
+		SELECT * FROM 
+		(SELECT ROWNUM RNUM, NUM, TITLE, BODY, SOURCE, URL, PDATE, READCOUNT FROM NEWS 
+		WHERE title like '%공모%' or 
+		title like '%대회%' or 
+		title like '%응모%' or 
+		title like '%응시%' or 
+		title like '%출전%' or 
+		title like '%출품%')  WHERE RNUM >= #{startRow} and RNUM <= #{endRow} 
+		]]>
+	</select>
+	
+	<select id="getLeisureNewsList" resultMap="newsResultMap" parameterType="com.spring.drone.news.LeisureNewsPaginationVO">
+		<![CDATA[
+		SELECT * FROM 
+		(SELECT ROWNUM RNUM, NUM, TITLE, BODY, SOURCE, URL, PDATE, READCOUNT FROM NEWS 
+		WHERE title like '%페스티벌%' or 
+		title like '%체험%' or 
+		title like '%가족%' or 
+		title like '%오픈%' or 
+		title like '%전시%' or 
+		title like '%참가%' or 
+		title like '%공연%' or 
+		title like '%시연%' or 
+		title like '%주말%' or 
+		title like '%엑스포%' or 
+		title like '%놀이%')  WHERE RNUM >= #{startRow} and RNUM <= #{endRow} 
+		]]>
+	</select>
+	<select id="getJobNewsList" resultMap="newsResultMap" parameterType="com.spring.drone.news.JobNewsPaginationVO">
+		<![CDATA[
+		SELECT * FROM 
+		(SELECT ROWNUM RNUM, NUM, TITLE, BODY, SOURCE, URL, PDATE, READCOUNT FROM NEWS 
+		WHERE title like '%구인%' or 
+		title like '%구직%' or 
+		title like '%특기%' or 
+		title like '%육군%' or 
+		title like '%취업%' or 
+		title like '%모집%' or 
+		title like '%알선%' or 
+		title like '%시험%' or 
+		title like '%선발%' or 
+		title like '%취직%' or 
+		title like '%직종%' or 
+		title like '%방제%' or 
+		title like '%정비%' or 
+		title like '%교관%' or 
+		title like '%복무%' or 
+		title like '%자격%')  WHERE RNUM >= #{startRow} and RNUM <= #{endRow} 
+		]]>
+	</select>
+	
+	<select id="getKeyNewsList" resultMap="newsResultMap" parameterType="com.spring.drone.news.KeywordVO">
+		<![CDATA[
+		SELECT ROWNUM RNUM, NUM, TITLE, BODY, SOURCE, URL, PDATE, READCOUNT FROM NEWS 
+		WHERE title like '%' || #{searchInput, jdbcType=VARCHAR} ||'%' ORDER BY PDATE
+		]]>
+	</select>
+	
+	
+</mapper>
