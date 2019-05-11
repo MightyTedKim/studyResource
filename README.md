@@ -63,7 +63,7 @@ I was asked to help my friend, to make a mail downloader.
 unfortunately, the company decided to hire a part timer to do the job
 ```
 
-<img src="https://user-images.githubusercontent.com/38391144/57567479-f8920d80-7414-11e9-93af-bd7f2b8c6902.gif" alt="Drawing" style="width: 400px;"/>
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/38391144/57568819-5b8ca000-7427-11e9-9be7-ad48efe5446f.gif)
 
 > toy)_xml2df_mybatis_20190511~
 
@@ -79,6 +79,5 @@ As a Java developer, think python is much better for demos
 ```
 
 
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/38391144/57568819-5b8ca000-7427-11e9-9be7-ad48efe5446f.gif)
-
+![image](https://user-images.githubusercontent.com/38391144/57567626-24ae8e00-7417-11e9-8ceb-2f50be458163.png)
 
