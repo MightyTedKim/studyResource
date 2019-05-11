@@ -78,5 +78,7 @@ working at a 'sql performance tuning' corp, there's really too much sqls..
 As a Java developer, think python is much better for demos
 ```
 
-![image](https://user-images.githubusercontent.com/38391144/57567626-24ae8e00-7417-11e9-8ceb-2f50be458163.png)
+
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/38391144/57568819-5b8ca000-7427-11e9-9be7-ad48efe5446f.gif)
+
 
