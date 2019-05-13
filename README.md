@@ -41,7 +41,7 @@ first team project after learning programming language for the first time
 > toy)_dashboard_practice_20180328~20180506
 
 ```
-to lazy for repeating works, made made a dashboard with Flexdashboard
+was too lazy for repeating works, made made a dashboard with Flexdashboard
 ```
 
 
