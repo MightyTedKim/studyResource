@@ -56,8 +56,7 @@ was too lazy for repeating works, made made a dashboard with Flexdashboard
 
 ## Python
 
->toy)_mail_download_and_organizing_20181231~20190114
-
+> [toy)_mail_download_and_organizing_20181231~20190114]https://github.com/MightyTedKim/studyResource/blob/master/Python/toy)_xml2df_mybatis_20190511~/xml2df.ipynb)
 ```
 I was asked to help my friend, to make a mail downloader. 
 unfortunately, the company decided to hire a part timer to do the job
