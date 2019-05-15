@@ -8,7 +8,7 @@
 
 | Lang.              | title                         | explanation                                                  | start_date | end_date  |
 | ------------------ | ----------------------------- | ------------------------------------------------------------ | ---------- | --------- |
-| Spring<br />(toy)  | drone_picinic<br /> _asTeam   | web introducing drone flying   spots, <br />- used Naver API (first team project) | 11-Aug-18  | 25-Oct-18 |
+| Spring<br />(toy)  | drone_picinic<br /> _asTeam   | drone gathering website, <br />- used Naver API (first team project) | 11-Aug-18  | 25-Oct-18 |
 | Spring<br />(book) | spring_by_code                | book   for Spring,<br /> - learned how basic website is structured | 28-Sep-18  | 2-Oct-18  |
 | Spring<br />(toy)  | drone_picnic <br />_byTed     | web   introducing drone flying spots, <br />- learned how code could be restructured | 25-Oct-18  | 5-Nov-18  |
 | R<br />(lecture)   | DeepLearning_101              | basic   lecture of statistics and deep learning              | 11-Aug-18  | 11-Sep-18 |
