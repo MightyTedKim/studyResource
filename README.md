@@ -2,7 +2,7 @@
 
 >  I believe practice makes perfection.
 >
-> since Aug, 2018 I am making efforts to improve my skill sets with toy projects and lectures.
+> since Aug, 2018 I am putting in  efforts to improve my skill sets with toy projects and lectures.
 >
 > Below is a short summary.
 
@@ -15,14 +15,14 @@
 | R<br />(toy)       | dashboard<br />_practice      | made   a dashboard with Walmat's sales data                  | 28-Mar-18  | 6-May-18  |
 | Python<br />(book) | data_with_python              | book   for Python<br /> - learned to use pandas, numpy       | 19-Sep-18  | 28-Sep-18 |
 | Python<br />(toy)  | blog_crawling                 | oraganized   news data with keyword<br /> - used Naver API   | 5-Nov-18   | -         |
-| Python<br />(toy)  | mail_download _and_organizing | download   specific email from client side <br />- used selenium | 31-Dec-18  | 14-Jan-19 |
+| Python<br />(toy)  | mail_download<br />_and_organizing | download   specific email from client side <br />- used selenium | 31-Dec-18  | 14-Jan-19 |
 | Python<br />(toy)  | xml2df_mybatis                | made   to analyze mybatis xml <br />- to   use when migrating oracle to postgre | 11-May-19  | on-going  |
 
 
 
 ## Spring
 
-> toy)_drone_picnic_byTed_20181025~20181105
+> toy_drone_picnic_byTed_20181025~20181105
 
 ```
 first team project after learning programming language for the first time
@@ -38,7 +38,7 @@ first team project after learning programming language for the first time
 
 ## R
 
-> toy)_dashboard_practice_20180328~20180506
+> toy_dashboard_practice_20180328~20180506
 
 ```
 was too lazy for repeating works, made made a dashboard with Flexdashboard
@@ -56,7 +56,7 @@ was too lazy for repeating works, made made a dashboard with Flexdashboard
 
 ## Python
 
->  [toy)_mail_download_and_organizing_20181231~20190114](https://github.com/MightyTedKim/studyResource/blob/master/Python/toy)_xml2df_mybatis_20190511~/xml2df.ipynb)
+>  toy_mail_download_and_organizing_20181231~20190114
 ```
 I was asked to help my friend, to make a mail downloader. 
 unfortunately, the company decided to hire a part timer to do the job
@@ -64,7 +64,7 @@ unfortunately, the company decided to hire a part timer to do the job
 
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/38391144/57568819-5b8ca000-7427-11e9-9be7-ad48efe5446f.gif)
 
-> toy)_xml2df_mybatis_20190511~
+> toy_xml2df_mybatis_20190511~
 
 ```
 these day I am migrating oracle to postgre
